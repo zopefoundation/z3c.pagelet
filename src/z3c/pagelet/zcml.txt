@@ -1,0 +1,104 @@
+=================
+Pagelet directive
+=================
+
+Show how we can use the pagelet directive. Register the meta configuration for 
+the directive.
+
+  >>> import sys
+  >>> from zope.configuration import xmlconfig
+  >>> import z3c.pagelet
+  >>> context = xmlconfig.file('meta.zcml', z3c.pagelet)
+
+We need also a custom pagelet class:
+
+  >>> from z3c.pagelet.browser import BrowserPagelet
+  >>> class MyPagelet(BrowserPagelet):
+  ...     """Custom pagelet"""
+
+Make them available under the fake package ``custom``:
+
+  >>> sys.modules['custom'] = type(
+  ...     'Module', (), 
+  ...     {'MyPagelet': MyPagelet})()
+
+Register a pagelet within the directive with minimal attributes:
+
+  >>> context = xmlconfig.string("""
+  ... <configure
+  ...     xmlns:z3c="http://namespaces.zope.org/z3c">
+  ...   <z3c:pagelet
+  ...       name="index.html"
+  ...       class="custom.MyPagelet"
+  ...       permission="zope.Public"
+  ...       />
+  ... </configure>
+  ... """, context)
+
+Let's get the pagelet
+
+  >>> import zope.component
+  >>> from zope.publisher.browser import TestRequest
+  >>> pagelet = zope.component.queryMultiAdapter((object(), TestRequest()), 
+  ...     name='index.html')
+
+and check them:
+
+  >>> pagelet
+  <z3c.pagelet.zcml.MyPagelet object at ...>
+
+  >>> pagelet.context
+  <object object at ...>
+
+Register the pagelet with a different name and more attributes provided from
+the directive. We also use a custom attribute called label here. Let's define 
+some more components...
+
+  >>> class SecondPagelet(BrowserPagelet):
+  ...     label = u''
+
+  >>> import zope.interface
+  >>> class IContent(zope.interface.Interface):
+  ...     """Content interface."""
+  >>> class Content(object):
+  ...     zope.interface.implements(IContent)
+
+register the new classes in the custom module...
+
+  >>> sys.modules['custom'].IContent = IContent
+  >>> sys.modules['custom'].Content = Content
+  >>> sys.modules['custom'].SecondPagelet = SecondPagelet
+
+and use them in the directive:
+
+  >>> context = xmlconfig.string("""
+  ... <configure
+  ...     xmlns:z3c="http://namespaces.zope.org/z3c">
+  ...   <z3c:pagelet
+  ...       name="custom.html"
+  ...       class="custom.SecondPagelet"
+  ...       for="custom.IContent"
+  ...       permission="zope.Public"
+  ...       label="my Label"
+  ...       />
+  ... </configure>
+  ... """, context)
+
+Get the pagelet for the new content object
+
+  >>> import zope.component
+  >>> from zope.publisher.browser import TestRequest
+  >>> pagelet = zope.component.queryMultiAdapter((Content(), TestRequest()), 
+  ...     name='custom.html')
+
+and check them:
+
+  >>> pagelet
+  <z3c.pagelet.zcml.SecondPagelet object at ...>
+
+  >>> pagelet.label
+  u'my Label'
+
+Now we need to clean up the custom module.
+
+  >>> del sys.modules['custom']

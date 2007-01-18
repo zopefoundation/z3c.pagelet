@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="z3c">
+
+  <!-- Pagelet renderer is used for calling the pagelets render method. -->
+  <adapter
+      name="pagelet"
+      for="zope.interface.Interface
+           zope.publisher.interfaces.browser.IBrowserRequest
+           .interfaces.IPagelet"
+      provides="zope.contentprovider.interfaces.IContentProvider"
+      factory=".provider.PageletRenderer"
+      />
+
+</configure>
