@@ -87,7 +87,6 @@ and use them in the directive:
 Get the pagelet for the new content object
 
   >>> import zope.component
-  >>> from zope.publisher.browser import TestRequest
   >>> pagelet = zope.component.queryMultiAdapter((Content(), TestRequest()), 
   ...     name='custom.html')
 
@@ -98,6 +97,65 @@ and check them:
 
   >>> pagelet.label
   u'my Label'
+
+We also can provide another interface then the IPagelet within the directive.
+Such a interface must be inherited from IPagelet.
+
+  >>> class NewPagelet(BrowserPagelet):
+  ...     """New pagelet"""
+  >>> sys.modules['custom'] = type(
+  ...     'Module', (), 
+  ...     {'NewPagelet': NewPagelet})()
+
+Now register the pagelet within a interface which isn't inherited from IPagelet.
+
+  >>> context = xmlconfig.string("""
+  ... <configure
+  ...     xmlns:z3c="http://namespaces.zope.org/z3c">
+  ...   <z3c:pagelet
+  ...       name="new.html"
+  ...       class="custom.NewPagelet"
+  ...       permission="zope.Public"
+  ...       provides="zope.interface.Interface"
+  ...       />
+  ... </configure>
+  ... """, context)
+  Traceback (most recent call last):
+  ...
+  ZopeXMLConfigurationError: File "<string>", line 4.2-9.8
+  ConfigurationError: Provides interface must inherit IPagelet.
+
+If we use a correct interface, we can register the pagelet:
+
+  >>> from z3c.pagelet import interfaces
+  >>> class INewPagelet(interfaces.IPagelet):
+  ...     """New pagelet interface."""
+  >>> sys.modules['custom'] = type(
+  ...     'Module', (), 
+  ...     {'INewPagelet': INewPagelet, 'NewPagelet': NewPagelet})()
+
+  >>> context = xmlconfig.string("""
+  ... <configure
+  ...     xmlns:z3c="http://namespaces.zope.org/z3c">
+  ...   <z3c:pagelet
+  ...       name="new.html"
+  ...       class="custom.NewPagelet"
+  ...       permission="zope.Public"
+  ...       provides="custom.INewPagelet"
+  ...       />
+  ... </configure>
+  ... """, context)
+
+And if we get the pagelet, we can see that the object provides the new 
+pagelet interface:
+
+  >>> pagelet = zope.component.queryMultiAdapter((object(), TestRequest()), 
+  ...     name='new.html')
+  >>> pagelet
+  <z3c.pagelet.zcml.NewPagelet object at ...>
+
+  >>> INewPagelet.providedBy(pagelet)
+  True
 
 Now we need to clean up the custom module.
 
