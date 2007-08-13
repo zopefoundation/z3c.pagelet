@@ -91,7 +91,7 @@ And register the layout template useing the ``Interface`` as registration base:
   ...     (zope.interface.Interface, IDefaultBrowserLayer), ILayoutTemplate)
 
 Now define a view marker interface. Such a marker interface is used for let
-use register our templates:
+us register our templates:
 
   >>> class IMyView(zope.interface.Interface):
   ...     pass
@@ -131,8 +131,8 @@ PageletRenderer
 
 There is also a standard pattern for calling the render method on pagelet. 
 Using the pagelet renderer which is a IContentProvider makes it possible to
-reuse existing laoyut template without the pagelet. if you like to reuse a 
-ayout template without a pagelet you simply have to provide another content
+reuse existing layout template without the pagelet. If you like to reuse a 
+layout template without a pagelet you simply have to provide another content
 provider. It's flexible isn't it? As next let's show a sample using the 
 pagelet renderer.
 
@@ -150,7 +150,7 @@ We define a new layout template using the content provider called ```pagelet``
   ...   </html>
   ... ''')
 
-and register them. Now we use the specific interface defined inthe view:
+and register them. Now we use the specific interface defined in the view:
 
   >>> factory = TemplateFactory(providerLayout, 'text/html')
   >>> zope.component.provideAdapter(factory,
@@ -188,11 +188,11 @@ Now let's call the view again:
 Add, Edit and Display forms (formlib)
 ------------------------------------
 
-What whould the pagelet be without formlib base implementations? We offer base
-implementations for add, edit and display forms based on the formlib 
+What whould the pagelet be without formlib based implementations? We offer base
+implementations for add, edit and display forms based on the formlib.
 
 For the next tests we provide a generic form template like used in formlib. 
-this template is registered within this package as default for the formlib
+This template is registered within this package as default for the formlib
 based mixin classes:
 
   >>> from z3c import pagelet
@@ -209,7 +209,7 @@ And we define a new interface includig text attribute:
   ...     """A document."""
   ...     text = zope.schema.TextLine(title=u'Text', description=u'Text attr.')
 
-Also define a content object whcih implements the interface:
+Also define a content object which implements the interface:
 
   >>> class Document(object):
   ...     zope.interface.implements(IDocument)
@@ -269,7 +269,7 @@ Now render the form:
 PageletEditForm
 ~~~~~~~~~~~~~~~
 
-Now let's define a edit from base on the PageletEditForm class...
+Now let's define a edit form based on the PageletEditForm class...
 
   >>> class MyEditForm(browser.PageletEditForm):
   ...     form_fields = form.Fields(IDocument)
@@ -311,10 +311,10 @@ and render the form:
   </html>
 
 
-PageletSisplayForm
+PageletDisplayForm
 ~~~~~~~~~~~~~~~~~~
 
-Now let's define a display from base on the PageletDisplayForm class...
+Now let's define a display from based on the PageletDisplayForm class...
 
   >>> class MyDisplayForm(browser.PageletDisplayForm):
   ...     form_fields = form.Fields(IDocument)
