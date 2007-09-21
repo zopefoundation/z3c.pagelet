@@ -1,6 +1,6 @@
-======
-README
-======
+========
+Pagelets
+========
 
 This package provides a very flexible base implementation for write view like
 components which can be higly customized later in custom project. This is
@@ -9,22 +9,22 @@ needed if you have to write reusable components like needed in a framework.
 What does this mean?
 
 We separate the python view code from the template implementation. And we also
-separate the template in at least two different templates like the content 
+separate the template in at least two different templates like the content
 template and a layout template.
 
-This package uses the z3c.template and offers a implementaton for this 
+This package uses the z3c.template and offers a implementaton for this
 template patterns. Additionaly this package offers a ``pagelet`` directive
 wich can be used for register pagelets.
 
-Pagelets are views which can be called and support the update and render 
-pattern. 
+Pagelets are views which can be called and support the update and render
+pattern.
 
 
 How do they work
 ----------------
 
-A pagelet returns the rendered content without layout in the render method and 
-returns the layout code if we call them. See also z3c.template which shows 
+A pagelet returns the rendered content without layout in the render method and
+returns the layout code if we call them. See also z3c.template which shows
 how the tempalte work. This samples will only show how the base implementation
 located in the z3c.pagelet.browser module get used.
 
@@ -32,10 +32,10 @@ located in the z3c.pagelet.browser module get used.
 BrowserPagelet
 --------------
 
-The base implementation called BrowserPagelet offers built in __call__ and 
+The base implementation called BrowserPagelet offers built in __call__ and
 render methods which provide the different template lookup. Take a look at the
-BrowserPage class located in z3c.pagelet.browser and you can see that render 
-method returns a IPageTemplate and the __call__ method a ILayoutTemplate 
+BrowserPage class located in z3c.pagelet.browser and you can see that render
+method returns a IPageTemplate and the __call__ method a ILayoutTemplate
 defined in the z3c.layout package.
 
   # some test stuff
@@ -70,10 +70,10 @@ This template will call the render method from a pagelet:
   ...   </html>
   ... ''')
 
-Let's now register the template for the view and request. We use the 
-TemplateFactory directly from the z3c.template package. This is commonly done 
-using the ZCML directive called ``z3c:pagelet``. Note that we do use a the 
-generic Interface as the view base interface for register the pagelet. This 
+Let's now register the template for the view and request. We use the
+TemplateFactory directly from the z3c.template package. This is commonly done
+using the ZCML directive called ``z3c:pagelet``. Note that we do use a the
+generic Interface as the view base interface for register the pagelet. This
 allows us to register a more specific template in the next sample:
 
   >>> from zope.publisher.interfaces.browser import IDefaultBrowserLayer
@@ -96,7 +96,7 @@ us register our templates:
   >>> class IMyView(zope.interface.Interface):
   ...     pass
 
-And we define a view class inherited from BrowserPagelet and implementing the 
+And we define a view class inherited from BrowserPagelet and implementing the
 view marker interface:
 
   >>> class MyView(browser.BrowserPagelet):
@@ -129,11 +129,11 @@ You can see the render method generates only the content:
 PageletRenderer
 ---------------
 
-There is also a standard pattern for calling the render method on pagelet. 
+There is also a standard pattern for calling the render method on pagelet.
 Using the pagelet renderer which is a IContentProvider makes it possible to
-reuse existing layout template without the pagelet. If you like to reuse a 
+reuse existing layout template without the pagelet. If you like to reuse a
 layout template without a pagelet you simply have to provide another content
-provider. It's flexible isn't it? As next let's show a sample using the 
+provider. It's flexible isn't it? As next let's show a sample using the
 pagelet renderer.
 
 We define a new layout template using the content provider called ```pagelet``
@@ -163,12 +163,12 @@ Now let's call the view:
   ...
   ContentProviderLookupError: pagelet
 
-That's right, we need to register the content provider ``pagelet`` before we 
+That's right, we need to register the content provider ``pagelet`` before we
 can use them.
 
   >>> from zope.contentprovider.interfaces import IContentProvider
   >>> from z3c.pagelet import provider
-  >>> zope.component.provideAdapter(provider.PageletRenderer, 
+  >>> zope.component.provideAdapter(provider.PageletRenderer,
   ...     provides=IContentProvider, name='pagelet')
 
 Now let's call the view again:
@@ -191,7 +191,7 @@ Add, Edit and Display forms (formlib)
 What whould the pagelet be without formlib based implementations? We offer base
 implementations for add, edit and display forms based on the formlib.
 
-For the next tests we provide a generic form template like used in formlib. 
+For the next tests we provide a generic form template like used in formlib.
 This template is registered within this package as default for the formlib
 based mixin classes:
 
@@ -202,7 +202,7 @@ based mixin classes:
   >>> zope.component.provideAdapter(factory,
   ...     (interfaces.IPageletForm, IDefaultBrowserLayer), IPageTemplate)
 
-And we define a new interface includig text attribute: 
+And we define a new interface includig text attribute:
 
   >>> import zope.schema
   >>> class IDocument(zope.interface.Interface):
