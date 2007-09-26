@@ -51,7 +51,7 @@ class BrowserPagelet(browser.BrowserPage):
         """Calls update and returns the layout template which calls render."""
         self.update()
         if self.layout is None:
-            layout = zope.component.getMultiAdapter((self, self.request), 
+            layout = zope.component.getMultiAdapter((self, self.request),
                 ILayoutTemplate)
             return layout(self)
         return self.layout()
