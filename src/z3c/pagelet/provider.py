@@ -15,20 +15,21 @@
 $Id$
 """
 
-import zope.interface
 import zope.component
-from zope.publisher.interfaces import browser
+import zope.interface
+import zope.publisher.interfaces.browser
 
-from z3c.pagelet import interfaces
+import z3c.pagelet.interfaces
 
 
 class PageletRenderer(object):
     """Render the adapted pagelet."""
 
-    zope.interface.implements(interfaces.IPageletRenderer)
+    zope.interface.implements(z3c.pagelet.interfaces.IPageletRenderer)
 
-    zope.component.adapts(zope.interface.Interface, browser.IBrowserRequest,
-        interfaces.IPagelet)
+    zope.component.adapts(zope.interface.Interface,
+                          zope.publisher.interfaces.browser.IBrowserRequest,
+                          z3c.pagelet.interfaces.IPagelet)
 
     def __init__(self, context, request, pagelet):
         self.__updated = False
