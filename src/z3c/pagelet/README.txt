@@ -35,7 +35,7 @@ BrowserPagelet
 The base implementation called BrowserPagelet offers built in __call__ and
 render methods which provide the different template lookup. Take a look at the
 BrowserPage class located in z3c.pagelet.browser and you can see that render
-method returns a IPageTemplate and the __call__ method a ILayoutTemplate
+method returns a IContentTemplate and the __call__ method a ILayoutTemplate
 defined in the z3c.layout package.
 
   # some test stuff
@@ -77,11 +77,12 @@ generic Interface as the view base interface for register the pagelet. This
 allows us to register a more specific template in the next sample:
 
   >>> from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-  >>> from zope.pagetemplate.interfaces import IPageTemplate
+  >>> from z3c.template.interfaces import IContentTemplate
   >>> from z3c.template.template import TemplateFactory
   >>> factory = TemplateFactory(contentTemplate, 'text/html')
-  >>> zope.component.provideAdapter(factory,
-  ...     (zope.interface.Interface, IDefaultBrowserLayer), IPageTemplate)
+  >>> zope.component.provideAdapter(
+  ...     factory, (zope.interface.Interface, IDefaultBrowserLayer),
+  ...     IContentTemplate)
 
 And register the layout template useing the ``Interface`` as registration base:
 
@@ -199,8 +200,9 @@ based mixin classes:
   >>> baseDir = os.path.split(pagelet.__file__)[0]
   >>> formTemplate = os.path.join(baseDir, 'form.pt')
   >>> factory = TemplateFactory(formTemplate, 'text/html')
-  >>> zope.component.provideAdapter(factory,
-  ...     (interfaces.IPageletForm, IDefaultBrowserLayer), IPageTemplate)
+  >>> zope.component.provideAdapter(
+  ...     factory,
+  ...     (interfaces.IPageletForm, IDefaultBrowserLayer), IContentTemplate)
 
 And we define a new interface includig text attribute:
 

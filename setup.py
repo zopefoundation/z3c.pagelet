@@ -47,7 +47,7 @@ setup (
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
         'Framework :: Zope3'],
-    url = 'http://svn.zope.org/z3c.pagelet',
+    url = 'http://pypi.python.org/pypi/z3c.pagelet',
     packages = find_packages('src'),
     include_package_data = True,
     package_dir = {'':'src'},
@@ -57,7 +57,7 @@ setup (
         ),
     install_requires = [
         'setuptools',
-        'z3c.template',
+        'z3c.template>=1.1a1',
         'zope.app.component',
         'zope.app.form',
         'zope.app.pagetemplate',

@@ -20,10 +20,9 @@ __docformat__ = 'restructuredtext'
 import zope.interface
 import zope.component
 from zope.formlib import form
-from zope.pagetemplate.interfaces import IPageTemplate
 from zope.publisher import browser
 
-from z3c.template.interfaces import ILayoutTemplate
+from z3c.template.interfaces import ILayoutTemplate, IContentTemplate
 from z3c.pagelet import interfaces
 
 
@@ -43,7 +42,7 @@ class BrowserPagelet(browser.BrowserPage):
         # render content template
         if self.template is None:
             template = zope.component.getMultiAdapter(
-                (self, self.request), IPageTemplate)
+                (self, self.request), IContentTemplate)
             return template(self)
         return self.template()
 
@@ -51,8 +50,8 @@ class BrowserPagelet(browser.BrowserPage):
         """Calls update and returns the layout template which calls render."""
         self.update()
         if self.layout is None:
-            layout = zope.component.getMultiAdapter((self, self.request),
-                ILayoutTemplate)
+            layout = zope.component.getMultiAdapter(
+                (self, self.request), ILayoutTemplate)
             return layout(self)
         return self.layout()
 
@@ -80,7 +79,7 @@ class PageletForm(form.FormBase, BrowserPagelet):
                 self.form_reset = False
             if self.template is None:
                 template = zope.component.getMultiAdapter(
-                    (self, self.request), IPageTemplate)
+                    (self, self.request), IContentTemplate)
                 self.form_result = template(self)
             else:
                 self.form_result = self.template()
@@ -100,7 +99,7 @@ class PageletAddForm(PageletForm, form.AddFormBase):
         # render content template
         if self.template is None:
             template = zope.component.getMultiAdapter(
-                (self, self.request), IPageTemplate)
+                (self, self.request), IContentTemplate)
             return template(self)
         return self.template()
 
