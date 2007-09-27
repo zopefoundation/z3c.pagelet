@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup (
     name='z3c.pagelet',
-    version='1.0.0',
+    version='1.0.1',
     author = "Roger Ineichen and the Zope Community",
     author_email = "zope3-dev@zope.org",
     description = "Pagelets are way to specify a template without the O-wrap.",
@@ -34,6 +34,8 @@ setup (
         '**********************\n'
         + '\n' +
         read('src', 'z3c', 'pagelet', 'README.txt')
+        + '\n' +
+        read('CHANGES.txt')
         ),
     license = "ZPL 2.1",
     keywords = "zope3 template pagelet layout zpt pagetemplate",
