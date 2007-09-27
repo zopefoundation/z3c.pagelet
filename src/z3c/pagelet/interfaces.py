@@ -26,6 +26,9 @@ class IPageletRenderer(zope.contentprovider.interfaces.IContentProvider):
 class IPagelet(IBrowserPage):
     """The pagelet."""
 
+    def render():
+        """Render the pagelet content w/o o-wrap."""
+
 
 class IPageletForm(IPagelet):
     """Form mixin for pagelet implementation."""
