@@ -1,11 +1,12 @@
 =======
-Changes
+CHANGES
 =======
 
-1.0.1 (unreleased)
-==================
+1.0.1 (2007-10-08)
+------------------
 
-* Added `render()` method to IPagelet which was not specified but used.
+* Added ``update()`` and ``render()`` method to ``IPagelet`` which was 
+  not specified but used.
 
 * Fixed a infinite recursion bug when a layout template was registered for "*"
   but no content template was registered for a pagelet.

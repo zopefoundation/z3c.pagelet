@@ -51,7 +51,6 @@ setup (
         'Framework :: Zope3'],
     url = 'http://pypi.python.org/pypi/z3c.pagelet',
     packages = find_packages('src'),
-    include_package_data = True,
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
     extras_require = dict(
@@ -77,6 +76,6 @@ setup (
         'zope.testing',
         'zope.traversing',
         ],
-    dependency_links = ['http://download.zope.org/distribution'],
+    include_package_data = True,
     zip_safe = False,
     )
