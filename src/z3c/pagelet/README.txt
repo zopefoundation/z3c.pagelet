@@ -187,7 +187,7 @@ Now let's call the view again:
 
 
 Add, Edit and Display forms (formlib)
-------------------------------------
+-------------------------------------
 
 What whould the pagelet be without formlib based implementations? We offer base
 implementations for add, edit and display forms based on the formlib.
