@@ -1,0 +1,20 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:z3c="http://namespaces.zope.org/z3c">
+
+  <z3c:template
+    for=".interfaces.IPageletAddForm"
+    template="form.pt"
+    />
+
+  <z3c:template
+    for=".interfaces.IPageletEditForm"
+    template="form.pt"
+    />
+
+  <z3c:template
+    for=".interfaces.IPageletDisplayForm"
+    template="form.pt"
+    />
+
+</configure>
