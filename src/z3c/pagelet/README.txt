@@ -34,7 +34,7 @@ BrowserPagelet
 
 The base implementation called BrowserPagelet offers built in __call__ and
 render methods which provide the different template lookup. Take a look at the
-BrowserPage class located in z3c.pagelet.browser and you can see that render
+BrowserPagelet class located in z3c.pagelet.browser and you can see that render
 method returns a IContentTemplate and the __call__ method a ILayoutTemplate
 defined in the z3c.layout package.
 
