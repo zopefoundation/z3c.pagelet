@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-1.0.2 (unreleased)
+1.0.2 (2007-01-21)
 ------------------
 
 * Added a `form.zcml` which can be included to have a template for
