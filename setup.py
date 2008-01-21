@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup (
     name='z3c.pagelet',
-    version='1.0.2',
+    version='1.0.3dev',
     author = "Roger Ineichen and the Zope Community",
     author_email = "zope3-dev@zope.org",
     description = "Pagelets are way to specify a template without the O-wrap.",
