@@ -16,16 +16,18 @@
 $Id$
 """
 import os
+import xml.sax.saxutils
 from setuptools import setup, find_packages
 
 def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    text = open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    return xml.sax.saxutils.escape(text)
 
 setup (
     name='z3c.pagelet',
-    version='1.0.3dev',
+    version='1.0.2',
     author = "Roger Ineichen and the Zope Community",
-    author_email = "zope3-dev@zope.org",
+    author_email = "zope-dev@zope.org",
     description = "Pagelets are way to specify a template without the O-wrap.",
     long_description=(
         read('README.txt')

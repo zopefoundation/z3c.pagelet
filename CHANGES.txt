@@ -2,23 +2,17 @@
 CHANGES
 =======
 
-1.0.3dev (unreleased)
----------------------
-
-- ...
-
-
-1.0.2 (2007-01-21)
+1.0.2 (2008-01-21)
 ------------------
 
 * Added a `form.zcml` which can be included to have a template for
-  PageletAddForm, PageletEditForm and PageletDisplayForm.
+  ``PageletAddForm``, ``PageletEditForm`` and ``PageletDisplayForm``.
 
 
 1.0.1 (2007-10-08)
 ------------------
 
-* Added ``update()`` and ``render()`` method to ``IPagelet`` which was 
+* Added ``update()`` and ``render()`` method to ``IPagelet`` which was
   not specified but used.
 
 * Fixed a infinite recursion bug when a layout template was registered for "*"
