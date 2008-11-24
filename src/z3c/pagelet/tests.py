@@ -17,6 +17,7 @@ $Id$
 __docformat__ = "reStructuredText"
 
 import unittest
+import itertools
 
 import zope.component
 import zope.schema
@@ -31,7 +32,9 @@ from zope.testing.doctestunit import DocFileSuite
 from zope.app.form.interfaces import IInputWidget
 from zope.app.testing import setup
 from zope.formlib import form
+from zope.configuration import xmlconfig
 
+import z3c.pt.compat.testing
 
 def setUp(test):
     root = setup.placefulSetUp(site=True)
@@ -41,11 +44,6 @@ def setUp(test):
         zope.traversing.adapters.DefaultTraversable,
         [None],
         )
-
-    # register provider TALES
-    from zope.app.pagetemplate import metaconfigure
-    from zope.contentprovider import tales
-    metaconfigure.registerType('provider', tales.TALESProviderExpression)
 
     # setup widgets
     zope.component.provideAdapter(zope.app.form.browser.TextWidget,
@@ -68,20 +66,37 @@ def setUp(test):
         )
     zope.component.provideAdapter(form.render_submit_button, name='render')
 
+def setUpZPT(test):
+    z3c.pt.compat.config.disable()
+    setUp(test)
+
+    # register provider TALES
+    from zope.app.pagetemplate import metaconfigure
+    from zope.contentprovider import tales
+    metaconfigure.registerType('provider', tales.TALESProviderExpression)
+
+def setUpZ3CPT(suite):
+    z3c.pt.compat.config.enable()
+    setUp(suite)
+    xmlconfig.XMLConfig('configure.zcml', z3c.pt)()
+
 def tearDown(test):
     setup.placefulTearDown()
 
-
 def test_suite():
-    return unittest.TestSuite((
+    checker = z3c.pt.compat.testing.OutputChecker()
+    
+    tests = ((
         DocFileSuite('README.txt',
             setUp=setUp, tearDown=tearDown,
             optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+            checker=checker,
             ),
         DocFileSuite('zcml.txt', setUp=setUp, tearDown=tearDown,
             optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,),
-        ))
+        ) for setUp in (setUpZPT, setUpZ3CPT, ))
 
+    return unittest.TestSuite(itertools.chain(*tests))
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

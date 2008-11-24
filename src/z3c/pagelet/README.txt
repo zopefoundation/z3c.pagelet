@@ -238,6 +238,8 @@ Now let's define an add from based on the PageletAddForm class:
 
 Now render the form:
 
+  >>> from z3c.pt.compat.testing import render
+  
   >>> addForm = MyAddForm(root, request)
   >>> print addForm()
   <html>
