@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+1.0.3 (unreleased)
+------------------
+
+* Using ``z3c.ptcompat`` instead of deprecated ``z3c.pt.compat``.
+
+
 1.0.2 (2008-01-21)
 ------------------
 

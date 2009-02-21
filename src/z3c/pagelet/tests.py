@@ -34,7 +34,7 @@ from zope.app.testing import setup
 from zope.formlib import form
 from zope.configuration import xmlconfig
 
-import z3c.pt.compat.testing
+import z3c.ptcompat.testing
 
 def setUp(test):
     root = setup.placefulSetUp(site=True)
@@ -67,7 +67,7 @@ def setUp(test):
     zope.component.provideAdapter(form.render_submit_button, name='render')
 
 def setUpZPT(test):
-    z3c.pt.compat.config.disable()
+    z3c.ptcompat.config.disable()
     setUp(test)
 
     # register provider TALES
@@ -76,7 +76,7 @@ def setUpZPT(test):
     metaconfigure.registerType('provider', tales.TALESProviderExpression)
 
 def setUpZ3CPT(suite):
-    z3c.pt.compat.config.enable()
+    z3c.ptcompat.config.enable()
     setUp(suite)
     xmlconfig.XMLConfig('configure.zcml', z3c.pt)()
 
@@ -84,8 +84,8 @@ def tearDown(test):
     setup.placefulTearDown()
 
 def test_suite():
-    checker = z3c.pt.compat.testing.OutputChecker()
-    
+    checker = z3c.ptcompat.testing.OutputChecker()
+
     tests = ((
         DocFileSuite('README.txt',
             setUp=setUp, tearDown=tearDown,
