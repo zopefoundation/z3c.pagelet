@@ -19,7 +19,7 @@ __docformat__ = 'restructuredtext'
 
 import zope.interface
 import zope.component
-from zope.formlib import form
+from zope.formlib import form # TODO: get rid of hard dependency on zope.formlib
 from zope.publisher import browser
 
 from z3c.template.interfaces import ILayoutTemplate, IContentTemplate
