@@ -94,9 +94,7 @@ def test_suite():
             ),
         DocFileSuite('zcml.txt', setUp=setUp, tearDown=tearDown,
             optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,),
-        ) for setUp in (setUpZPT, ))
-        #) for setUp in (setUpZPT, setUpZ3CPT, ))
-        # XXX: z3c.pt's "provider" expression is currently broken
+        ) for setUp in (setUpZPT, setUpZ3CPT, ))
 
     return unittest.TestSuite(itertools.chain(*tests))
 
