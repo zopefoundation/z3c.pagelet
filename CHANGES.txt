@@ -13,6 +13,8 @@ CHANGES
 
 * Don't do rendering in pagelet's __call__ method when request is a redirection.
 
+* Add sphinx-based HTML documentation building part to the buildout.
+
 
 1.0.2 (2008-01-21)
 ------------------
