@@ -357,6 +357,81 @@ and render the form:
   </html>
 
 
+Context-specific templates
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pagelets are also able to lookup templates using their context object
+as an additional discriminator, via (self, self.request, self.context)
+lookup. It's useful when you want to provide a custom template for
+some specific content objects. Let's check that out.
+
+First, let's define a custom content type and make an object to work with:
+
+  >>> class IContent(zope.interface.Interface):
+  ...     pass
+  >>> class Content(object):
+  ...     zope.interface.implements(IContent)
+
+  >>> content = Content()
+
+Let's use our view class we defined earlier. Currently, it will use
+the layout and content templates we defined for (view, request) before:
+
+  >>> myView = MyView(content, request)
+  >>> print myView()
+  <html>
+    <body>
+      <div class="layout">
+        <div class="content">
+          my template content
+        </div>
+      </div>
+    </body>
+  </html>
+
+Let's create context-specific layout and content templates and register
+them for our IContent interface:
+
+  >>> contextLayoutTemplate = os.path.join(temp_dir, 'contextLayoutTemplate.pt')
+  >>> open(contextLayoutTemplate, 'w').write('''
+  ...   <html>
+  ...     <body>
+  ...       <div class="context-layout" tal:content="structure provider:pagelet">
+  ...         here comes the context-specific content
+  ...       </div>
+  ...     </body>
+  ...   </html>
+  ... ''')
+  >>> factory = TemplateFactory(contextLayoutTemplate, 'text/html')
+  >>> zope.component.provideAdapter(
+  ...     factory, (zope.interface.Interface, IDefaultBrowserLayer, IContent),
+  ...     ILayoutTemplate)
+ 
+  >>> contextContentTemplate = os.path.join(temp_dir, 'contextContentTemplate.pt')
+  >>> open(contextContentTemplate, 'w').write('''
+  ...   <div class="context-content">
+  ...     my context-specific template content
+  ...   </div>
+  ... ''')
+  >>> factory = TemplateFactory(contextContentTemplate, 'text/html')
+  >>> zope.component.provideAdapter(
+  ...     factory, (zope.interface.Interface, IDefaultBrowserLayer, IContent),
+  ...     IContentTemplate)
+
+Now, our view should use context-specific templates for rendering:
+
+  >>> print myView()
+  <html>
+    <body>
+      <div class="context-layout">
+        <div class="context-content">
+          my context-specific template content
+        </div>
+      </div>
+    </body>
+  </html>
+
+
 Cleanup
 -------
 

@@ -41,8 +41,11 @@ class BrowserPagelet(browser.BrowserPage):
     def render(self):
         # render content template
         if self.template is None:
-            template = zope.component.getMultiAdapter(
-                (self, self.request), IContentTemplate)
+            template = zope.component.queryMultiAdapter(
+                (self, self.request, self.context), IContentTemplate)
+            if template is None:
+                template = zope.component.getMultiAdapter(
+                    (self, self.request), IContentTemplate)
             return template(self)
         return self.template()
 
@@ -50,8 +53,11 @@ class BrowserPagelet(browser.BrowserPage):
         """Calls update and returns the layout template which calls render."""
         self.update()
         if self.layout is None:
-            layout = zope.component.getMultiAdapter(
-                (self, self.request), ILayoutTemplate)
+            layout = zope.component.queryMultiAdapter(
+                (self, self.request, self.context), ILayoutTemplate)
+            if layout is None:
+                layout = zope.component.getMultiAdapter(
+                    (self, self.request), ILayoutTemplate)
             return layout(self)
         return self.layout()
 
@@ -78,8 +84,11 @@ class PageletForm(form.FormBase, BrowserPagelet):
                 self.resetForm()
                 self.form_reset = False
             if self.template is None:
-                template = zope.component.getMultiAdapter(
-                    (self, self.request), IContentTemplate)
+                template = zope.component.queryMultiAdapter(
+                    (self, self.request, self.context), IContentTemplate)
+                if template is None:
+                    template = zope.component.getMultiAdapter(
+                        (self, self.request), IContentTemplate)
                 self.form_result = template(self)
             else:
                 self.form_result = self.template()
@@ -98,8 +107,11 @@ class PageletAddForm(PageletForm, form.AddFormBase):
             return ""
         # render content template
         if self.template is None:
-            template = zope.component.getMultiAdapter(
-                (self, self.request), IContentTemplate)
+            template = zope.component.queryMultiAdapter(
+                (self, self.request, self.context), IContentTemplate)
+            if template is None:
+                template = zope.component.getMultiAdapter(
+                    (self, self.request), IContentTemplate)
             return template(self)
         return self.template()
 

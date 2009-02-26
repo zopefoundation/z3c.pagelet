@@ -7,6 +7,9 @@ CHANGES
 
 * Allow use of ``z3c.pt`` using ``z3c.ptcompat`` compatibility layer.
 
+* Add support for context-specific layout and content template lookup,
+  using (view, request, context) discriminator. This is compatible with
+  context-specific templates introduced in z3c.template 1.2.0. 
 
 1.0.2 (2008-01-21)
 ------------------
