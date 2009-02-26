@@ -129,6 +129,32 @@ You can see the render method generates only the content:
   </div>
 
 
+Redirection
+-----------
+
+The pagelet doesn't bother rendering itself and its layout when request is a
+redirection as the rendering doesn't make any sense with browser requests in
+that case. Let's create a view that does a redirection in its update method.
+
+  >>> class RedirectingView(MyView):
+  ...     def update(self):
+  ...         self.request.response.redirect('http://www.google.com/')
+
+It will return an empty string when called as a browser page.
+
+  >>> redirectRequest = TestRequest()
+  >>> redirectView = RedirectingView(root, redirectRequest)
+  >>> redirectView() == ''
+  True
+
+However, the ``render`` method will render pagelet's template as usual:
+
+  >>> print redirectView.render()
+  <div class="content">
+    my template content
+  </div>
+  
+
 PageletRenderer
 ---------------
 

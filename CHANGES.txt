@@ -11,6 +11,9 @@ CHANGES
   using (view, request, context) discriminator. This is compatible with
   context-specific templates introduced in z3c.template 1.2.0. 
 
+* Don't do rendering in pagelet's __call__ method when request is a redirection.
+
+
 1.0.2 (2008-01-21)
 ------------------
 

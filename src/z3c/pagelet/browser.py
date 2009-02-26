@@ -25,6 +25,7 @@ from zope.publisher import browser
 from z3c.template.interfaces import ILayoutTemplate, IContentTemplate
 from z3c.pagelet import interfaces
 
+REDIRECT_STATUS_CODES = (301, 302, 303)
 
 # default pagelet base implementation
 class BrowserPagelet(browser.BrowserPage):
@@ -52,6 +53,11 @@ class BrowserPagelet(browser.BrowserPage):
     def __call__(self):
         """Calls update and returns the layout template which calls render."""
         self.update()
+        
+        if self.request.response.getStatus() in REDIRECT_STATUS_CODES:
+            # don't bother rendering when redirecting
+            return ''
+        
         if self.layout is None:
             layout = zope.component.queryMultiAdapter(
                 (self, self.request, self.context), ILayoutTemplate)
