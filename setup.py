@@ -62,6 +62,7 @@ setup (
                 'z3c.pt>=1.0b4',
                 'z3c.ptcompat',
                 ],
+        docs = ['z3c.recipe.sphinxdoc'],
         ),
     install_requires = [
         'setuptools',
