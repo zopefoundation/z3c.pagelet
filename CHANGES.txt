@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-1.0.4 (unreleased)
+1.1.0 (2009-05-28)
 ------------------
 
 * Got rid of dependency on ``zope.app.component`` by requiring
