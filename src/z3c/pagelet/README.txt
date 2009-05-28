@@ -154,7 +154,7 @@ However, the ``render`` method will render pagelet's template as usual:
   <div class="content">
     my template content
   </div>
-  
+
 
 PageletRenderer
 ---------------
@@ -264,7 +264,7 @@ them for our IContent interface:
   >>> zope.component.provideAdapter(
   ...     factory, (zope.interface.Interface, IDefaultBrowserLayer, IContent),
   ...     ILayoutTemplate)
- 
+
   >>> contextContentTemplate = os.path.join(temp_dir, 'contextContentTemplate.pt')
   >>> open(contextContentTemplate, 'w').write('''
   ...   <div class="context-content">
@@ -294,8 +294,11 @@ Add, Edit and Display forms (formlib)
 -------------------------------------
 
 What would the pagelet be without any formlib based implementations?
-We offer base implementations for add, edit and display forms
-based on the formlib.
+We offer base implementations for add, edit and display forms based on
+the formlib. **Note:** To make sure these classes get defined, you
+should have ``zope.formlib`` already installed, as ``z3c.pagelet``
+does not directly depend on ``zope.formlib`` because there are other
+form libraries.
 
 For the next tests we provide a generic form template
 like those used in formlib. This template is registered within this package

@@ -8,6 +8,12 @@ CHANGES
 * Got rid of dependency on ``zope.app.component`` by requiring
   ``zope.component >= 3.7``.
 
+* Removed hard dependency on ``zope.formlib``: the pagelet forms now
+  only get defined when ``zope.formlib`` is available. Tests still
+  depend on ``zope.formlib``, so it got a test dependency.
+
+* Made sure long_description renders fine on pypi.
+
 
 1.0.3 (2009-02-27)
 ------------------

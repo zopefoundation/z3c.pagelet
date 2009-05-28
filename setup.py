@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2007 Zope Foundation and Contributors.
+# Copyright (c) 2007-2009 Zope Foundation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -20,23 +20,21 @@ import xml.sax.saxutils
 from setuptools import setup, find_packages
 
 def read(*rnames):
-    text = open(os.path.join(os.path.dirname(__file__), *rnames)).read()
-    return xml.sax.saxutils.escape(text)
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-setup (
+version = '1.0.4dev',
+
+setup(
     name='z3c.pagelet',
-    version='1.0.4dev',
+    version=version,
     author = "Roger Ineichen and the Zope Community",
     author_email = "zope-dev@zope.org",
     description = "Pagelets are way to specify a template without the O-wrap.",
     long_description=(
         read('README.txt')
-        + '\n' +
-        'Detailed Documentation\n'
-        '**********************\n'
-        + '\n' +
+        + '\n\n' +
         read('src', 'z3c', 'pagelet', 'README.txt')
-        + '\n' +
+        + '\n\n' +
         read('CHANGES.txt')
         ),
     license = "ZPL 2.1",
@@ -64,6 +62,7 @@ setup (
                 'z3c.pt>=1.0b4',
                 'z3c.ptcompat',
                 'zope.app.security',
+                'zope.formlib',
                 ],
         docs = ['z3c.recipe.sphinxdoc'],
         ),
@@ -76,7 +75,6 @@ setup (
         'zope.component>=3.7.0',
         'zope.configuration',
         'zope.contentprovider',
-        'zope.formlib', # TODO: get rid of hard dependency on zope.formlib
         'zope.interface',
         'zope.publisher',
         'zope.schema',

@@ -19,7 +19,6 @@ __docformat__ = 'restructuredtext'
 
 import zope.interface
 import zope.component
-from zope.formlib import form # TODO: get rid of hard dependency on zope.formlib
 from zope.publisher import browser
 
 from z3c.template.interfaces import ILayoutTemplate, IContentTemplate
@@ -53,11 +52,11 @@ class BrowserPagelet(browser.BrowserPage):
     def __call__(self):
         """Calls update and returns the layout template which calls render."""
         self.update()
-        
+
         if self.request.response.getStatus() in REDIRECT_STATUS_CODES:
             # don't bother rendering when redirecting
             return ''
-        
+
         if self.layout is None:
             layout = zope.component.queryMultiAdapter(
                 (self, self.request, self.context), ILayoutTemplate)
@@ -67,68 +66,72 @@ class BrowserPagelet(browser.BrowserPage):
             return layout(self)
         return self.layout()
 
+try:
+    from zope.formlib import form
+except ImportError:
+    pass
+else:
+    # formlib based pagelet mixin classes
+    class PageletForm(form.FormBase, BrowserPagelet):
+        """Fomr mixin for pagelet implementations."""
 
-# formlib based pagelet mixin classes
-class PageletForm(form.FormBase, BrowserPagelet):
-    """Fomr mixin for pagelet implementations."""
+        zope.interface.implements(interfaces.IPageletForm)
 
-    zope.interface.implements(interfaces.IPageletForm)
+        template = None
+        layout = None
 
-    template = None
-    layout = None
+        __init__ = BrowserPagelet.__init__
 
-    __init__ = BrowserPagelet.__init__
+        __call__ = BrowserPagelet.__call__
 
-    __call__ = BrowserPagelet.__call__
+        def render(self):
+            # if the form has been updated, it will already have a result
+            if self.form_result is None:
+                if self.form_reset:
+                    # we reset, in case data has changed in a way that
+                    # causes the widgets to have different data
+                    self.resetForm()
+                    self.form_reset = False
+                if self.template is None:
+                    template = zope.component.queryMultiAdapter(
+                        (self, self.request, self.context), IContentTemplate)
+                    if template is None:
+                        template = zope.component.getMultiAdapter(
+                            (self, self.request), IContentTemplate)
+                    self.form_result = template(self)
+                else:
+                    self.form_result = self.template()
 
-    def render(self):
-        # if the form has been updated, it will already have a result
-        if self.form_result is None:
-            if self.form_reset:
-                # we reset, in case data has changed in a way that
-                # causes the widgets to have different data
-                self.resetForm()
-                self.form_reset = False
+            return self.form_result
+
+
+    class PageletAddForm(PageletForm, form.AddFormBase):
+        """Add form mixin for pagelet implementations."""
+
+        zope.interface.implements(interfaces.IPageletAddForm)
+
+        def render(self):
+            if self._finished_add:
+                self.request.response.redirect(self.nextURL())
+                return ""
+            # render content template
             if self.template is None:
                 template = zope.component.queryMultiAdapter(
                     (self, self.request, self.context), IContentTemplate)
                 if template is None:
                     template = zope.component.getMultiAdapter(
                         (self, self.request), IContentTemplate)
-                self.form_result = template(self)
-            else:
-                self.form_result = self.template()
-
-        return self.form_result
+                return template(self)
+            return self.template()
 
 
-class PageletAddForm(PageletForm, form.AddFormBase):
-    """Add form mixin for pagelet implementations."""
+    class PageletEditForm(PageletForm, form.EditFormBase):
+        """Edit form mixin for pagelet implementations."""
 
-    zope.interface.implements(interfaces.IPageletAddForm)
-
-    def render(self):
-        if self._finished_add:
-            self.request.response.redirect(self.nextURL())
-            return ""
-        # render content template
-        if self.template is None:
-            template = zope.component.queryMultiAdapter(
-                (self, self.request, self.context), IContentTemplate)
-            if template is None:
-                template = zope.component.getMultiAdapter(
-                    (self, self.request), IContentTemplate)
-            return template(self)
-        return self.template()
+        zope.interface.implements(interfaces.IPageletEditForm)
 
 
-class PageletEditForm(PageletForm, form.EditFormBase):
-    """Edit form mixin for pagelet implementations."""
+    class PageletDisplayForm(PageletForm, form.DisplayFormBase):
+        """Display fomr mixin for pagelet implementations."""
 
-    zope.interface.implements(interfaces.IPageletEditForm)
-
-
-class PageletDisplayForm(PageletForm, form.DisplayFormBase):
-    """Display fomr mixin for pagelet implementations."""
-
-    zope.interface.implements(interfaces.IPageletDisplayForm)
+        zope.interface.implements(interfaces.IPageletDisplayForm)
