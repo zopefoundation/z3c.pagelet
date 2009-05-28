@@ -18,6 +18,7 @@ __docformat__ = "reStructuredText"
 
 import zope.interface
 import zope.component
+import zope.component.zcml
 import zope.schema
 import zope.configuration.fields
 import zope.security.checker
@@ -26,13 +27,12 @@ from zope.configuration.exceptions import ConfigurationError
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from zope.app.publisher.browser import viewmeta
-from zope.app.component import metadirectives
 
 from z3c.pagelet import interfaces
 from z3c.pagelet import browser
 
 
-class IPageletDirective(metadirectives.IBasicViewInformation):
+class IPageletDirective(zope.component.zcml.IBasicViewInformation):
     """A directive to register a new pagelet.
 
     The pagelet directive also supports an undefined set of keyword arguments
@@ -78,8 +78,8 @@ IPageletDirective.setTaggedValue('keyword_arguments', True)
 
 # pagelet directive
 def pageletDirective(
-    _context, class_, name, permission, for_=zope.interface.Interface, 
-    layer=IDefaultBrowserLayer, provides=interfaces.IPagelet, 
+    _context, class_, name, permission, for_=zope.interface.Interface,
+    layer=IDefaultBrowserLayer, provides=interfaces.IPagelet,
     allowed_interface=None, allowed_attributes=None, **kwargs):
 
     # Security map dictionary
@@ -114,7 +114,7 @@ def pageletDirective(
     viewmeta._handle_allowed_attributes(
         _context, kwargs.keys(), permission, required)
     viewmeta._handle_allowed_attributes(
-        _context, ('__call__', 'browserDefault', 'update', 'render', 
+        _context, ('__call__', 'browserDefault', 'update', 'render',
                    'publishTraverse'), permission, required)
 
     # Register the interfaces.
@@ -125,7 +125,7 @@ def pageletDirective(
         zope.interface.classImplements(new_class, provides)
 
     # Create the security checker for the new class
-    zope.security.checker.defineChecker(new_class, 
+    zope.security.checker.defineChecker(new_class,
         zope.security.checker.Checker(required))
 
     # register pagelet

@@ -63,6 +63,7 @@ setup (
                 'lxml>=2.1.1',
                 'z3c.pt>=1.0b4',
                 'z3c.ptcompat',
+                'zope.app.security',
                 ],
         docs = ['z3c.recipe.sphinxdoc'],
         ),
@@ -70,9 +71,9 @@ setup (
         'setuptools',
         'z3c.template>=1.2.0',
         'z3c.ptcompat',
-        'zope.app.component', # TODO: these are only needed for ZCML directives, so can copy
+         # TODO: this is only needed for ZCML directives, so can copy
         'zope.app.publisher', # things we use from there and get rid of the dependencies.
-        'zope.component',
+        'zope.component>=3.7.0',
         'zope.configuration',
         'zope.contentprovider',
         'zope.formlib', # TODO: get rid of hard dependency on zope.formlib

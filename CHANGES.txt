@@ -5,7 +5,8 @@ CHANGES
 1.0.4 (unreleased)
 ------------------
 
-* ...
+* Got rid of dependency on ``zope.app.component`` by requiring
+  ``zope.component >= 3.7``.
 
 
 1.0.3 (2009-02-27)
@@ -15,7 +16,7 @@ CHANGES
 
 * Add support for context-specific layout and content template lookup,
   using (view, request, context) discriminator. This is compatible with
-  context-specific templates introduced in z3c.template 1.2.0. 
+  context-specific templates introduced in z3c.template 1.2.0.
 
 * Don't do rendering in pagelet's __call__ method when request is a redirection.
 
