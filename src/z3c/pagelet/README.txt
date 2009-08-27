@@ -139,7 +139,7 @@ that case. Let's create a view that does a redirection in its update method.
 
   >>> class RedirectingView(MyView):
   ...     def update(self):
-  ...         self.request.response.redirect('http://www.google.com/')
+  ...         self.request.response.redirect('.')
 
 It will return an empty string when called as a browser page.
 
