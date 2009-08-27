@@ -2,7 +2,13 @@
 CHANGES
 =======
 
-1.2.0 (unreleased)
+1.2.1 (unreleased)
+------------------
+
+- ...
+
+
+1.2.0 (2009-08-27)
 ------------------
 
 - Fix untrusted redirect to google.com in tests. It's now forbidden by default
