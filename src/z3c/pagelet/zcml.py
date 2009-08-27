@@ -26,7 +26,7 @@ import zope.security.zcml
 from zope.configuration.exceptions import ConfigurationError
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
-from zope.app.publisher.browser import viewmeta
+from zope.browserpage import metaconfigure as viewmeta
 
 from z3c.pagelet import interfaces
 from z3c.pagelet import browser

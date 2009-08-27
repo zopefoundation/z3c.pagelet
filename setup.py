@@ -22,7 +22,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.1.1dev'
+version = '1.2.0dev'
 
 setup(
     name='z3c.pagelet',
@@ -71,7 +71,7 @@ setup(
         'z3c.template>=1.2.0',
         'z3c.ptcompat',
          # TODO: this is only needed for ZCML directives, so can copy
-        'zope.app.publisher', # things we use from there and get rid of the dependencies.
+        'zope.browserpage', # things we use from there and get rid of the dependencies.
         'zope.component>=3.7.0',
         'zope.configuration',
         'zope.contentprovider',
