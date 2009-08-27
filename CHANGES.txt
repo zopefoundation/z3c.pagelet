@@ -5,7 +5,8 @@ CHANGES
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix untrusted redirect to google.com in tests. It's now forbidden by default
+  by newer zope.publisher versions.
 
 
 1.1.0 (2009-05-28)
