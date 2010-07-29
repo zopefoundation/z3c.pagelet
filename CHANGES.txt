@@ -5,7 +5,14 @@ CHANGES
 1.2.1 (unreleased)
 ------------------
 
-- ...
+- ``zope.app.pagetemplate.metaconfigure.registerType`` was moved to
+  ``zope.browserpage``, so it gets now imported from there.
+
+- Dropped test dependency on ``zope.app.security``, it is no longer
+  needed.
+
+- Using python's ``docteest`` instead of deprecated
+  ``zope.testing.doctest[unit]``.
 
 
 1.2.0 (2009-08-27)

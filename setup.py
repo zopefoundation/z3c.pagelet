@@ -61,7 +61,6 @@ setup(
                 'lxml>=2.1.1',
                 'z3c.pt>=1.0b4',
                 'z3c.ptcompat',
-                'zope.app.security',
                 'zope.formlib',
                 ],
         docs = ['z3c.recipe.sphinxdoc'],

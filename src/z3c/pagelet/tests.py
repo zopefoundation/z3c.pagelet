@@ -18,6 +18,7 @@ __docformat__ = "reStructuredText"
 
 import unittest
 import itertools
+import doctest
 
 import zope.component
 import zope.schema
@@ -27,8 +28,6 @@ import zope.app.form.browser
 import zope.app.form.browser.exception
 import zope.app.form.browser.interfaces
 from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.testing import doctest
-from zope.testing.doctestunit import DocFileSuite
 from zope.app.form.interfaces import IInputWidget
 from zope.app.testing import setup
 from zope.formlib import form
@@ -71,7 +70,7 @@ def setUpZPT(test):
     setUp(test)
 
     # register provider TALES
-    from zope.app.pagetemplate import metaconfigure
+    from zope.browserpage import metaconfigure
     from zope.contentprovider import tales
     metaconfigure.registerType('provider', tales.TALESProviderExpression)
 
@@ -87,12 +86,12 @@ def test_suite():
     checker = z3c.ptcompat.testing.OutputChecker()
 
     tests = ((
-        DocFileSuite('README.txt',
+        doctest.DocFileSuite('README.txt',
             setUp=setUp, tearDown=tearDown,
             optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
             checker=checker,
             ),
-        DocFileSuite('zcml.txt', setUp=setUp, tearDown=tearDown,
+        doctest.DocFileSuite('zcml.txt', setUp=setUp, tearDown=tearDown,
             optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,),
         ) for setUp in (setUpZPT, setUpZ3CPT, ))
 
