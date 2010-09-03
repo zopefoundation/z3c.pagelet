@@ -17,7 +17,7 @@ CHANGES
 - Dropped test dependency on ``zope.app.security``, it is no longer
   needed.
 
-- Using python's ``docteest`` instead of deprecated
+- Using python's ``doctest`` instead of deprecated
   ``zope.testing.doctest[unit]``.
 
 
