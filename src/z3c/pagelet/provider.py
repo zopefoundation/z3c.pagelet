@@ -17,7 +17,7 @@ $Id$
 
 import zope.component
 import zope.interface
-import zope.publisher.interfaces.browser
+import zope.publisher.interfaces.http
 
 import z3c.pagelet.interfaces
 
@@ -28,7 +28,7 @@ class PageletRenderer(object):
     zope.interface.implements(z3c.pagelet.interfaces.IPageletRenderer)
 
     zope.component.adapts(zope.interface.Interface,
-                          zope.publisher.interfaces.browser.IBrowserRequest,
+                          zope.publisher.interfaces.http.IHTTPRequest,
                           z3c.pagelet.interfaces.IPagelet)
 
     def __init__(self, context, request, pagelet):

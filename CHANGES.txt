@@ -5,7 +5,10 @@ CHANGES
 1.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Change request interface in pagelet adapter signature e.g.
+  (context, request, pagelet). Switch from IBrowserRequest to IHTTPRequest.
+  This allows to use the pagelet pattern for jsonrpc request which doesn't
+  provide IBrowserRequest.
 
 
 1.2.1 (2010-07-29)
