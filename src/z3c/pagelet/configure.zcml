@@ -6,7 +6,7 @@
   <adapter
       name="pagelet"
       for="zope.interface.Interface
-           zope.publisher.interfaces.browser.IBrowserRequest
+           zope.publisher.interfaces.http.IHTTPRequest
            .interfaces.IPagelet"
       provides="zope.contentprovider.interfaces.IContentProvider"
       factory=".provider.PageletRenderer"
