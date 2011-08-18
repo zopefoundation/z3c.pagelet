@@ -22,7 +22,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.2.2'
+version = '1.2.3dev'
 
 setup(
     name='z3c.pagelet',
