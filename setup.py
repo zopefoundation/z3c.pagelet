@@ -22,7 +22,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.2.3dev'
+version = '1.3.0'
 
 setup(
     name='z3c.pagelet',
@@ -54,21 +54,27 @@ setup(
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
     extras_require = dict(
-        test = ['zope.app.testing',
-                'zope.app.form',
-                'zope.testing',
-                'zope.traversing',
-                'lxml>=2.1.1',
-                'z3c.pt>=1.0b4',
-                'z3c.ptcompat',
-                'zope.formlib',
-                ],
-        docs = ['z3c.recipe.sphinxdoc'],
+        test = [
+            'zope.app.testing',
+            'zope.app.form',
+            'zope.testing',
+            'zope.traversing',
+            'lxml>=2.1.1',
+            'z3c.pt >= 2.1',
+            'z3c.ptcompat>=1.0',
+            'zope.formlib',
+            ],
+        chameleon = [
+            'z3c.pt >= 2.1',
+            'z3c.ptcompat',
+            ],
+        docs = [
+            'z3c.recipe.sphinxdoc'
+            ],
         ),
     install_requires = [
         'setuptools',
         'z3c.template>=1.2.0',
-        'z3c.ptcompat',
          # TODO: this is only needed for ZCML directives, so can copy
         'zope.browserpage', # things we use from there and get rid of the dependencies.
         'zope.component>=3.7.0',

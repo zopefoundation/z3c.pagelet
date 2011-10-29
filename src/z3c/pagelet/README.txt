@@ -192,6 +192,7 @@ Now let's call the view:
   Traceback (most recent call last):
   ...
   ContentProviderLookupError: pagelet
+  ...
 
 That's right, we need to register the content provider ``pagelet`` before we
 can use it.
@@ -342,8 +343,6 @@ Now let's define an add from based on the PageletAddForm class:
   ...         return doc
 
 Now render the form:
-
-  >>> from z3c.ptcompat.testing import render
 
   >>> addForm = MyAddForm(root, request)
   >>> print addForm()
