@@ -188,11 +188,11 @@ and register them. Now we use the specific interface defined in the view:
 
 Now let's call the view:
 
-  >>> print myView()
-  Traceback (most recent call last):
-  ...
-  ContentProviderLookupError: pagelet
-  ...
+  >>> try:
+  ...     myView()
+  ... except Exception, e:
+  ...     print repr(e)
+  ContentProviderLookupError(u'pagelet',)
 
 That's right, we need to register the content provider ``pagelet`` before we
 can use it.
