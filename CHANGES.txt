@@ -5,7 +5,8 @@ CHANGES
 1.3.1 (unreleased)
 ------------------
 
-- ...
+- Fix ``IPageletDirective`` after a change in
+  ``zope.component.zcml.IBasicViewInformation``
 
 
 1.3.0 (2011-10-29)
@@ -17,7 +18,7 @@ CHANGES
 
 - Upgrade to chameleon 2.0 template engine and use the newest z3c.pt and
   z3c.ptcompat packages adjusted to work with chameleon 2.0.
-  
+
   See the notes from the z3c.ptcompat package:
 
   Update z3c.ptcompat implementation to use component-based template engine
@@ -29,14 +30,14 @@ CHANGES
   Note that the ``PREFER_Z3C_PT`` environment option has been
   rendered obsolete; instead, this is now managed via component
   configuration.
-  
+
   Also note that the chameleon CHAMELEON_CACHE environment value changed from
   True/False to a path. Skip this property if you don't like to use a cache.
   None or False defined in buildout environment section doesn't work. At least
   with chameleon <= 2.5.4
-  
+
   Attention: You need to include the configure.zcml file from z3c.ptcompat
-  for enable the z3c.pt template engine. The configure.zcml will plugin the 
+  for enable the z3c.pt template engine. The configure.zcml will plugin the
   template engine. Also remove any custom built hooks which will import
   z3c.ptcompat in your tests or other places.
 

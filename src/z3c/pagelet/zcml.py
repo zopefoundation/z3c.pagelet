@@ -56,6 +56,13 @@ class IPageletDirective(zope.component.zcml.IBasicViewInformation):
         required=True
         )
 
+    layer = zope.configuration.fields.GlobalObject(
+        title=u"The request interface or class this pagelet is for.",
+        description=
+        u"Defaults to zope.publisher.interfaces.browser.IDefaultBrowserLayer.",
+        required=False
+        )
+
     for_ = zope.configuration.fields.GlobalObject(
         title=u"Context",
         description=u"The content interface or class this pagelet is for.",
