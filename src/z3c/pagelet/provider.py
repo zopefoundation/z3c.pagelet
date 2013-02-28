@@ -11,10 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+"""Pagelet Content Providers
 """
-$Id$
-"""
-
 import zope.component
 import zope.interface
 import zope.publisher.interfaces.http
@@ -22,10 +20,9 @@ import zope.publisher.interfaces.http
 import z3c.pagelet.interfaces
 
 
+@zope.interface.implementer(z3c.pagelet.interfaces.IPageletRenderer)
 class PageletRenderer(object):
     """Render the adapted pagelet."""
-
-    zope.interface.implements(z3c.pagelet.interfaces.IPageletRenderer)
 
     zope.component.adapts(zope.interface.Interface,
                           zope.publisher.interfaces.http.IHTTPRequest,

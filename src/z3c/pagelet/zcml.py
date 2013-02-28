@@ -11,11 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+"""ZCML Directives
 """
-$Id$
-"""
-__docformat__ = "reStructuredText"
-
 import zope.interface
 import zope.component
 import zope.component.zcml

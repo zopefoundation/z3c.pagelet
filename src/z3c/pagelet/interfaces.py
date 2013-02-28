@@ -11,10 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+"""Interfaces
 """
-$Id$
-"""
-
 import zope.contentprovider.interfaces
 from zope.publisher.interfaces.browser import IBrowserPage
 

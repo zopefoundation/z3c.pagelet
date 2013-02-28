@@ -53,7 +53,8 @@ defined in the z3c.layout package.
 We start by defining a page template rendering the pagelet content.
 
   >>> contentTemplate = os.path.join(temp_dir, 'contentTemplate.pt')
-  >>> open(contentTemplate, 'w').write('''
+  >>> with open(contentTemplate, 'w') as file:
+  ...     _ = file.write('''
   ...   <div class="content">
   ...     my template content
   ...   </div>
@@ -63,7 +64,8 @@ And we also define a layout template rendering the layout for a pagelet.
 This template will call the render method from a pagelet:
 
   >>> layoutTemplate = os.path.join(temp_dir, 'layoutTemplate.pt')
-  >>> open(layoutTemplate, 'w').write('''
+  >>> with open(layoutTemplate, 'w') as file:
+  ...     _ = file.write('''
   ...   <html>
   ...     <body>
   ...       <div class="layout" tal:content="structure view/render">
@@ -103,15 +105,16 @@ us register our templates:
 And we define a view class inherited from BrowserPagelet and implementing the
 view marker interface:
 
-  >>> class MyView(browser.BrowserPagelet):
-  ...     zope.interface.implements(IMyView)
+  >>> @zope.interface.implementer(IMyView)
+  ... class MyView(browser.BrowserPagelet):
+  ...     pass
 
 Now test the view class providing the view and check the output:
 
   >>> from zope.publisher.browser import TestRequest
   >>> request = TestRequest()
   >>> myView = MyView(root, request)
-  >>> print myView()
+  >>> print(myView())
   <html>
     <body>
       <div class="layout">
@@ -124,7 +127,7 @@ Now test the view class providing the view and check the output:
 
 You can see the render method generates only the content:
 
-  >>> print myView.render()
+  >>> print(myView.render())
   <div class="content">
     my template content
   </div>
@@ -150,7 +153,7 @@ It will return an empty string when called as a browser page.
 
 However, the ``render`` method will render pagelet's template as usual:
 
-  >>> print redirectView.render()
+  >>> print(redirectView.render())
   <div class="content">
     my template content
   </div>
@@ -170,7 +173,8 @@ We define a new layout template using the content provider called ```pagelet``
 
 
   >>> providerLayout = os.path.join(temp_dir, 'providerLayout.pt')
-  >>> open(providerLayout, 'w').write('''
+  >>> with open(providerLayout, 'w') as file:
+  ...     _ = file.write('''
   ...   <html>
   ...     <body>
   ...       <div class="layout" tal:content="structure provider:pagelet">
@@ -190,8 +194,8 @@ Now let's call the view:
 
   >>> try:
   ...     myView()
-  ... except Exception, e:
-  ...     print repr(e)
+  ... except Exception as e:
+  ...     print(repr(e))
   ContentProviderLookupError(u'pagelet',)
 
 That's right, we need to register the content provider ``pagelet`` before we
@@ -204,7 +208,7 @@ can use it.
 
 Now let's call the view again:
 
-  >>> print myView()
+  >>> print(myView())
   <html>
     <body>
       <div class="layout">
@@ -228,8 +232,9 @@ First, let's define a custom content type and make an object to work with:
 
   >>> class IContent(zope.interface.Interface):
   ...     pass
-  >>> class Content(object):
-  ...     zope.interface.implements(IContent)
+  >>> @zope.interface.implementer(IContent)
+  ... class Content(object):
+  ...     pass
 
   >>> content = Content()
 
@@ -237,7 +242,7 @@ Let's use our view class we defined earlier. Currently, it will use
 the layout and content templates we defined for (view, request) before:
 
   >>> myView = MyView(content, request)
-  >>> print myView()
+  >>> print(myView())
   <html>
     <body>
       <div class="layout">
@@ -252,7 +257,8 @@ Let's create context-specific layout and content templates and register
 them for our IContent interface:
 
   >>> contextLayoutTemplate = os.path.join(temp_dir, 'contextLayoutTemplate.pt')
-  >>> open(contextLayoutTemplate, 'w').write('''
+  >>> with open(contextLayoutTemplate, 'w') as file:
+  ...     _ = file.write('''
   ...   <html>
   ...     <body>
   ...       <div class="context-layout" tal:content="structure provider:pagelet">
@@ -267,7 +273,8 @@ them for our IContent interface:
   ...     ILayoutTemplate)
 
   >>> contextContentTemplate = os.path.join(temp_dir, 'contextContentTemplate.pt')
-  >>> open(contextContentTemplate, 'w').write('''
+  >>> with open(contextContentTemplate, 'w') as file:
+  ...     _ = file.write('''
   ...   <div class="context-content">
   ...     my context-specific template content
   ...   </div>
@@ -279,7 +286,7 @@ them for our IContent interface:
 
 Now, our view should use context-specific templates for rendering:
 
-  >>> print myView()
+  >>> print(myView())
   <html>
     <body>
       <div class="context-layout">
@@ -322,8 +329,8 @@ And we define a new interface including a text attribute:
 
 Also define a content object which implements the interface:
 
-  >>> class Document(object):
-  ...     zope.interface.implements(IDocument)
+  >>> @zope.interface.implementer(IDocument)
+  ... class Document(object):
   ...     text = None
   >>> document = Document()
 
@@ -345,7 +352,7 @@ Now let's define an add from based on the PageletAddForm class:
 Now render the form:
 
   >>> addForm = MyAddForm(root, request)
-  >>> print addForm()
+  >>> print(addForm())
   <html>
     <body>
       <div class="layout">
@@ -389,7 +396,7 @@ and render the form:
 
   >>> document.text = u'foo'
   >>> editForm = MyEditForm(document, request)
-  >>> print editForm()
+  >>> print(editForm())
   <html>
     <body>
       <div class="layout">
@@ -434,7 +441,7 @@ and render the form:
 
   >>> document.text = u'foo'
   >>> displayForm = MyDisplayForm(document, request)
-  >>> print displayForm()
+  >>> print(displayForm())
   <html>
     <body>
       <div class="layout">

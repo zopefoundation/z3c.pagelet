@@ -11,11 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+"""Tests
 """
-$Id$
-"""
-__docformat__ = "reStructuredText"
-
 import re
 import unittest
 import itertools
@@ -27,69 +24,28 @@ import lxml.doctestcompare
 import zope.component
 import zope.schema
 import zope.traversing.adapters
-import zope.app.form.interfaces
-import zope.app.form.browser
-import zope.app.form.browser.exception
-import zope.app.form.browser.interfaces
+import zope.formlib.interfaces
+import zope.formlib.exception
+import zope.formlib.textwidgets
 from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.app.form.interfaces import IInputWidget
-from zope.app.testing import setup
+from zope.site.testing import siteSetUp, siteTearDown
 from zope.formlib import form
 from zope.configuration import xmlconfig
+from zope.testing import renormalizing
 
+from z3c.pagelet import outputchecker
 
-class OutputChecker(lxml.doctestcompare.LHTMLOutputChecker):
-    """Doctest output checker which is better equippied to identify
-    HTML markup than the checker from the ``lxml.doctestcompare``
-    module. It also uses the text comparison function from the
-    built-in ``doctest`` module to allow the use of ellipsis."""
-
-    _repr_re = re.compile(r"^<([A-Z]|[^>]+ (at|object) |[a-z]+ \'[A-Za-z0-9_.]+\'>)")
-
-    def __init__(self, doctest=doctest):
-        self.doctest = doctest
-        # make sure these optionflags are registered
-        doctest.register_optionflag('PARSE_HTML')
-        doctest.register_optionflag('PARSE_XML')
-        doctest.register_optionflag('NOPARSE_MARKUP')
-
-    def _looks_like_markup(self, s):
-        s = s.replace('<BLANKLINE>', '\n').strip()
-        return (s.startswith('<')
-                and not self._repr_re.search(s))
-
-    def text_compare(self, want, got, strip):
-        if want is None: want = ""
-        if got is None: got = ""
-        checker = self.doctest.OutputChecker()
-        return checker.check_output(
-            want, got, self.doctest.ELLIPSIS|self.doctest.NORMALIZE_WHITESPACE)
-
-    def get_parser(self, want, got, optionflags):
-        NOPARSE_MARKUP = self.doctest.OPTIONFLAGS_BY_NAME.get(
-            "NOPARSE_MARKUP", 0)
-        PARSE_HTML = self.doctest.OPTIONFLAGS_BY_NAME.get(
-            "PARSE_HTML", 0)
-        PARSE_XML = self.doctest.OPTIONFLAGS_BY_NAME.get(
-            "PARSE_XML", 0)
-        parser = None
-        if NOPARSE_MARKUP & optionflags:
-            return None
-        if PARSE_HTML & optionflags:
-            parser = lxml.doctestcompare.html_fromstring
-        elif PARSE_XML & optionflags:
-            parser = lxml.etree.XML
-        elif (want.strip().lower().startswith('<html')
-              and got.strip().startswith('<html')):
-            parser = lxml.doctestcompare.html_fromstring
-        elif (self._looks_like_markup(want)
-              and self._looks_like_markup(got)):
-            parser = self.get_default_parser()
-        return parser
+checker = outputchecker.OutputChecker(patterns=[
+    # Python 3 unicode removed the "u".
+    (re.compile("u('.*?')"),
+     r"\1"),
+    (re.compile('u(".*?")'),
+     r"\1"),
+    ])
 
 
 def setUp(test):
-    root = setup.placefulSetUp(site=True)
+    root = siteSetUp(True)
     test.globs['root'] = root
 
     zope.component.provideAdapter(
@@ -98,23 +54,23 @@ def setUp(test):
         )
 
     # setup widgets
-    zope.component.provideAdapter(zope.app.form.browser.TextWidget,
+    zope.component.provideAdapter(zope.formlib.textwidgets.TextWidget,
         [zope.schema.interfaces.ITextLine, IBrowserRequest],
-        IInputWidget)
+        zope.formlib.interfaces.IInputWidget)
 
     zope.component.provideAdapter(
-        zope.app.form.browser.exception.WidgetInputErrorView,
-        [zope.app.form.interfaces.IWidgetInputError,
+        zope.formlib.exception.WidgetInputErrorView,
+        [zope.formlib.interfaces.IWidgetInputError,
          zope.publisher.interfaces.browser.IBrowserRequest,
          ],
-        zope.app.form.browser.interfaces.IWidgetInputErrorView,
+        zope.formlib.interfaces.IWidgetInputErrorView,
         )
     zope.component.provideAdapter(
-        zope.app.form.browser.UnicodeDisplayWidget,
+        zope.formlib.widget.UnicodeDisplayWidget,
         [zope.schema.interfaces.ITextLine,
          zope.publisher.interfaces.browser.IBrowserRequest,
          ],
-        zope.app.form.interfaces.IDisplayWidget,
+        zope.formlib.interfaces.IDisplayWidget,
         )
     zope.component.provideAdapter(form.render_submit_button, name='render')
 
@@ -134,19 +90,21 @@ def setUpZ3CPT(suite):
     xmlconfig.XMLConfig('configure.zcml', z3c.ptcompat)()
 
 def tearDown(test):
-    setup.placefulTearDown()
+    siteTearDown()
 
 def test_suite():
-    checker = OutputChecker()
-
+    flags = doctest.NORMALIZE_WHITESPACE|\
+            doctest.ELLIPSIS|\
+            doctest.IGNORE_EXCEPTION_DETAIL
     tests = ((
-        doctest.DocFileSuite('README.txt',
-            setUp=setUp, tearDown=tearDown,
-            optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-            checker=checker,
-            ),
-        doctest.DocFileSuite('zcml.txt', setUp=setUp, tearDown=tearDown,
-            optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,),
+        doctest.DocFileSuite(
+                'README.txt',
+                setUp=setUp, tearDown=tearDown,
+                optionflags=flags, checker=checker),
+        doctest.DocFileSuite(
+                'zcml.txt',
+                setUp=setUp, tearDown=tearDown,
+                optionflags=flags, checker=checker),
         ) for setUp in (setUpZPT, setUpZ3CPT, ))
 
     return unittest.TestSuite(itertools.chain(*tests))

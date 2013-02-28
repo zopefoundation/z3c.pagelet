@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """Setup
-
-$Id$
 """
 import os
 import xml.sax.saxutils
@@ -22,11 +20,9 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.3.2.dev0'
-
 setup(
     name='z3c.pagelet',
-    version=version,
+    version='2.0.0a1.dev0',
     author = "Roger Ineichen and the Zope Community",
     author_email = "zope-dev@zope.org",
     description = "Pagelets are way to specify a template without the O-wrap.",
@@ -45,6 +41,12 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: Implementation :: CPython',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
@@ -55,18 +57,20 @@ setup(
     namespace_packages = ['z3c'],
     extras_require = dict(
         test = [
-            'zope.app.testing',
-            'zope.app.form',
+            'zope.formlib',
             'zope.testing',
+            'zope.site',
             'zope.traversing',
-            'lxml>=2.1.1',
+            'lxml',
             'z3c.pt >= 2.1',
             'z3c.ptcompat>=1.0',
-            'zope.formlib',
             ],
         chameleon = [
             'z3c.pt >= 2.1',
             'z3c.ptcompat',
+            ],
+        forms = [
+            'zope.formlib'
             ],
         docs = [
             'z3c.recipe.sphinxdoc'
@@ -75,8 +79,7 @@ setup(
     install_requires = [
         'setuptools',
         'z3c.template>=1.2.0',
-         # TODO: this is only needed for ZCML directives, so can copy
-        'zope.browserpage', # things we use from there and get rid of the dependencies.
+        'zope.browserpage',
         'zope.component>=3.7.0',
         'zope.configuration',
         'zope.contentprovider',
@@ -85,6 +88,16 @@ setup(
         'zope.schema',
         'zope.security',
         ],
+    tests_require = [
+        'zope.formlib',
+        'zope.site',
+        'zope.testing',
+        'zope.traversing',
+        'lxml',
+        'z3c.pt >= 2.1',
+        'z3c.ptcompat>=1.0',
+        ],
+    test_suite='z3c.pagelet.tests.test_suite',
     include_package_data = True,
     zip_safe = False,
     )

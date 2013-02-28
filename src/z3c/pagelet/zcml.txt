@@ -60,8 +60,9 @@ some more components...
   >>> import zope.interface
   >>> class IContent(zope.interface.Interface):
   ...     """Content interface."""
-  >>> class Content(object):
-  ...     zope.interface.implements(IContent)
+  >>> @zope.interface.implementer(IContent)
+  ... class Content(object):
+  ...     pass
 
 register the new classes in the custom module...
 

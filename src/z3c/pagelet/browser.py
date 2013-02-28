@@ -12,11 +12,7 @@
 #
 ##############################################################################
 """Pagelet mixin classes
-
-$Id$
 """
-__docformat__ = 'restructuredtext'
-
 import zope.interface
 import zope.component
 from zope.publisher import browser
@@ -27,10 +23,9 @@ from z3c.pagelet import interfaces
 REDIRECT_STATUS_CODES = (301, 302, 303)
 
 # default pagelet base implementation
+@zope.interface.implementer(interfaces.IPagelet)
 class BrowserPagelet(browser.BrowserPage):
     """Content generating pagelet with layout template support."""
-
-    zope.interface.implements(interfaces.IPagelet)
 
     template = None
     layout = None
@@ -72,10 +67,9 @@ except ImportError:
     pass
 else:
     # formlib based pagelet mixin classes
+    @zope.interface.implementer(interfaces.IPageletForm)
     class PageletForm(form.FormBase, BrowserPagelet):
         """Fomr mixin for pagelet implementations."""
-
-        zope.interface.implements(interfaces.IPageletForm)
 
         template = None
         layout = None
@@ -105,10 +99,9 @@ else:
             return self.form_result
 
 
+    @zope.interface.implementer(interfaces.IPageletAddForm)
     class PageletAddForm(PageletForm, form.AddFormBase):
         """Add form mixin for pagelet implementations."""
-
-        zope.interface.implements(interfaces.IPageletAddForm)
 
         def render(self):
             if self._finished_add:
@@ -125,13 +118,11 @@ else:
             return self.template()
 
 
+    @zope.interface.implementer(interfaces.IPageletEditForm)
     class PageletEditForm(PageletForm, form.EditFormBase):
         """Edit form mixin for pagelet implementations."""
 
-        zope.interface.implements(interfaces.IPageletEditForm)
 
-
+    @zope.interface.implementer(interfaces.IPageletDisplayForm)
     class PageletDisplayForm(PageletForm, form.DisplayFormBase):
         """Display fomr mixin for pagelet implementations."""
-
-        zope.interface.implements(interfaces.IPageletDisplayForm)
