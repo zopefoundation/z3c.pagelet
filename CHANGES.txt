@@ -5,7 +5,7 @@ CHANGES
 2.0.0a2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Standardize namespace __init__
 
 
 2.0.0a1 (2013-02-28)
