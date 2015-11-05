@@ -16,25 +16,27 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
 
 setup(
     name='z3c.pagelet',
     version='2.0.0a2.dev0',
-    author = "Roger Ineichen and the Zope Community",
-    author_email = "zope-dev@zope.org",
-    description = "Pagelets are way to specify a template without the O-wrap.",
+    author="Roger Ineichen and the Zope Community",
+    author_email="zope-dev@zope.org",
+    description="Pagelets are way to specify a template without the O-wrap.",
     long_description=(
         read('README.txt')
         + '\n\n' +
         read('src', 'z3c', 'pagelet', 'README.txt')
         + '\n\n' +
         read('CHANGES.txt')
-        ),
-    license = "ZPL 2.1",
-    keywords = "zope3 template pagelet layout zpt pagetemplate",
-    classifiers = [
+    ),
+    license="ZPL 2.1",
+    keywords="zope3 template pagelet layout zpt pagetemplate",
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
@@ -50,12 +52,12 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
         'Framework :: Zope3'],
-    url = 'http://pypi.python.org/pypi/z3c.pagelet',
-    packages = find_packages('src'),
-    package_dir = {'':'src'},
-    namespace_packages = ['z3c'],
-    extras_require = dict(
-        test = [
+    url='http://pypi.python.org/pypi/z3c.pagelet',
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    namespace_packages=['z3c'],
+    extras_require=dict(
+        test=[
             'zope.formlib',
             'zope.testing',
             'zope.site',
@@ -63,19 +65,19 @@ setup(
             'lxml',
             'z3c.pt >= 2.1',
             'z3c.ptcompat>=1.0',
-            ],
-        chameleon = [
+        ],
+        chameleon=[
             'z3c.pt >= 2.1',
             'z3c.ptcompat',
-            ],
-        forms = [
+        ],
+        forms=[
             'zope.formlib'
-            ],
-        docs = [
+        ],
+        docs=[
             'z3c.recipe.sphinxdoc'
-            ],
-        ),
-    install_requires = [
+        ],
+    ),
+    install_requires=[
         'setuptools',
         'z3c.template>=1.2.0',
         'zope.browserpage',
@@ -86,8 +88,8 @@ setup(
         'zope.publisher',
         'zope.schema',
         'zope.security',
-        ],
-    tests_require = [
+    ],
+    tests_require=[
         'zope.formlib',
         'zope.site',
         'zope.testing',
@@ -95,8 +97,8 @@ setup(
         'lxml',
         'z3c.pt >= 2.1',
         'z3c.ptcompat>=1.0',
-        ],
+    ],
     test_suite='z3c.pagelet.tests.test_suite',
-    include_package_data = True,
-    zip_safe = False,
-    )
+    include_package_data=True,
+    zip_safe=False,
+)
