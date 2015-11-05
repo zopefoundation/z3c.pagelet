@@ -14,7 +14,6 @@
 """Setup
 """
 import os
-import xml.sax.saxutils
 from setuptools import setup, find_packages
 
 def read(*rnames):
