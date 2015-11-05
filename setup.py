@@ -21,6 +21,17 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 
+tests_require = [
+    'zope.formlib',
+    'zope.site',
+    'zope.testing',
+    'zope.traversing',
+    'lxml',
+    'z3c.pt >= 2.1',
+    'z3c.ptcompat >= 1.0',
+]
+
+
 setup(
     name='z3c.pagelet',
     version='2.0.0a2.dev0',
@@ -57,15 +68,7 @@ setup(
     package_dir={'': 'src'},
     namespace_packages=['z3c'],
     extras_require=dict(
-        test=[
-            'zope.formlib',
-            'zope.testing',
-            'zope.site',
-            'zope.traversing',
-            'lxml',
-            'z3c.pt >= 2.1',
-            'z3c.ptcompat>=1.0',
-        ],
+        test=tests_require,
         chameleon=[
             'z3c.pt >= 2.1',
             'z3c.ptcompat',
@@ -89,15 +92,7 @@ setup(
         'zope.schema',
         'zope.security',
     ],
-    tests_require=[
-        'zope.formlib',
-        'zope.site',
-        'zope.testing',
-        'zope.traversing',
-        'lxml',
-        'z3c.pt >= 2.1',
-        'z3c.ptcompat>=1.0',
-    ],
+    tests_require=tests_require,
     test_suite='z3c.pagelet.tests.test_suite',
     include_package_data=True,
     zip_safe=False,
