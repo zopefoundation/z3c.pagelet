@@ -5,7 +5,9 @@ CHANGES
 2.0.0a2 (unreleased)
 --------------------
 
-- Standardize namespace __init__
+- Standardize namespace __init__.
+
+- Claim support for Python 3.4.
 
 
 2.0.0a1 (2013-02-28)
