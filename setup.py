@@ -39,11 +39,11 @@ setup(
     author_email="zope-dev@zope.org",
     description="Pagelets are way to specify a template without the O-wrap.",
     long_description=(
-        read('README.txt')
+        read('README.rst')
         + '\n\n' +
-        read('src', 'z3c', 'pagelet', 'README.txt')
+        read('src', 'z3c', 'pagelet', 'README.rst')
         + '\n\n' +
-        read('CHANGES.txt')
+        read('CHANGES.rst')
     ),
     license="ZPL 2.1",
     keywords="zope3 template pagelet layout zpt pagetemplate",

@@ -98,11 +98,11 @@ def test_suite():
             doctest.IGNORE_EXCEPTION_DETAIL
     tests = ((
         doctest.DocFileSuite(
-                'README.txt',
+                'README.rst',
                 setUp=setUp, tearDown=tearDown,
                 optionflags=flags, checker=checker),
         doctest.DocFileSuite(
-                'zcml.txt',
+                'zcml.rst',
                 setUp=setUp, tearDown=tearDown,
                 optionflags=flags, checker=checker),
         ) for setUp in (setUpZPT, setUpZ3CPT, ))
