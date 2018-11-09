@@ -92,13 +92,6 @@ def pageletDirective(
     # Get the permission; mainly to correctly handle CheckerPublic.
     permission = viewmeta._handle_permission(_context, permission)
 
-    # The class must be specified.
-    if not class_:
-        raise ConfigurationError("Must specify a class.")
-
-    if not zope.interface.interfaces.IInterface.providedBy(provides):
-        raise ConfigurationError("Provides interface provide IInterface.")
-
     ifaces = list(zope.interface.Declaration(provides).flattened())
     if interfaces.IPagelet not in ifaces:
         raise ConfigurationError("Provides interface must inherit IPagelet.")
