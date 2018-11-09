@@ -196,7 +196,7 @@ Now let's call the view:
   ...     myView()
   ... except Exception as e:
   ...     print(repr(e))
-  ContentProviderLookupError(u'pagelet',)
+  ContentProviderLookupError('pagelet'...)
 
 That's right, we need to register the content provider ``pagelet`` before we
 can use it.
