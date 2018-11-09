@@ -22,6 +22,45 @@ Make them available under the fake package ``custom``:
   ...     'Module', (),
   ...     {'MyPagelet': MyPagelet})()
 
+To register a pagelet we need a class:
+
+  >>> context = xmlconfig.string("""
+  ... <configure
+  ...     xmlns:z3c="http://namespaces.zope.org/z3c">
+  ...   <z3c:pagelet
+  ...       name="index.html"
+  ...       permission="zope.Public"
+  ...       />
+  ... </configure>
+  ... """, context)
+  Traceback (most recent call last):
+  ...
+  ConfigurationError: Missing parameter: 'class'
+  File "<string>", line 4.2-7.8
+
+And we also need an interface implementing zope.interface.intefaces.IInterface:
+
+  >>> class NonInterface(object):
+  ...     """Non compliant interface."""
+  >>> sys.modules['custom'].NonInterface = NonInterface
+  >>> context = xmlconfig.string("""
+  ... <configure
+  ...     xmlns:z3c="http://namespaces.zope.org/z3c">
+  ...   <z3c:pagelet
+  ...       name="index.html"
+  ...       class="custom.MyPagelet"
+  ...       permission="zope.Public"
+  ...       provides="custom.NonInterface"
+  ...       />
+  ... </configure>
+  ... """, context)
+  Traceback (most recent call last):
+  ...
+  ConfigurationError: Invalid value for 'provides'
+  File "<string>", line 4.2-9.8
+  zope.schema._bootstrapinterfaces.NotAnInterface:
+
+
 Register a pagelet within the directive with minimal attributes:
 
   >>> context = xmlconfig.string("""
