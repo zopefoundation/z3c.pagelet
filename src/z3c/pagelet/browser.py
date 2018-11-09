@@ -69,7 +69,7 @@ else:
     # formlib based pagelet mixin classes
     @zope.interface.implementer(interfaces.IPageletForm)
     class PageletForm(form.FormBase, BrowserPagelet):
-        """Fomr mixin for pagelet implementations."""
+        """Form mixin for pagelet implementations."""
 
         template = None
         layout = None
@@ -125,4 +125,4 @@ else:
 
     @zope.interface.implementer(interfaces.IPageletDisplayForm)
     class PageletDisplayForm(PageletForm, form.DisplayFormBase):
-        """Display fomr mixin for pagelet implementations."""
+        """Display form mixin for pagelet implementations."""
