@@ -18,13 +18,15 @@ from setuptools import setup, find_packages
 
 
 def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
+        return f.read()
 
 
 tests_require = [
     'zope.formlib',
     'zope.site',
     'zope.testing',
+    'zope.testrunner',
     'zope.traversing',
     'lxml',
     'z3c.pt >= 2.1',
@@ -34,7 +36,7 @@ tests_require = [
 
 setup(
     name='z3c.pagelet',
-    version='2.0.1.dev0',
+    version='3.0.0.dev0',
     author="Roger Ineichen and the Zope Community",
     author_email="zope-dev@zope.org",
     description="Pagelets are way to specify a template without the O-wrap.",
@@ -54,12 +56,14 @@ setup(
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',

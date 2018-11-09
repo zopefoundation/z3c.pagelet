@@ -123,8 +123,8 @@ Now register the pagelet within a interface which isn't inherited from IPagelet.
   ... """, context)
   Traceback (most recent call last):
   ...
-  ZopeXMLConfigurationError: File "<string>", line 4.2-9.8
   ConfigurationError: Provides interface must inherit IPagelet.
+  File "<string>", line 4.2-9.8
 
 If we use a correct interface, we can register the pagelet:
 
