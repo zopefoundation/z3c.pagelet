@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.1 (unreleased)
+2.1 (2018-11-12)
 ----------------
 
 - Claim support for Python 3.5, 3.6, 3.6, PyPy and PyPy3.
