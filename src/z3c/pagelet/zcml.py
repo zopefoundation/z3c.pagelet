@@ -45,26 +45,27 @@ class IPageletDirective(zope.component.zcml.IBasicViewInformation):
         title=u"Class",
         description=u"A class that provides attributes used by the pagelet.",
         required=True,
-        )
+    )
 
     permission = zope.security.zcml.Permission(
         title=u"Permission",
         description=u"The permission needed to use the pagelet.",
         required=True
-        )
+    )
 
     layer = zope.configuration.fields.GlobalObject(
         title=u"The request interface or class this pagelet is for.",
-        description=
-        u"Defaults to zope.publisher.interfaces.browser.IDefaultBrowserLayer.",
+        description=(
+            u"Defaults to"
+            u" zope.publisher.interfaces.browser.IDefaultBrowserLayer."),
         required=False
-        )
+    )
 
     for_ = zope.configuration.fields.GlobalObject(
         title=u"Context",
         description=u"The content interface or class this pagelet is for.",
         required=False
-        )
+    )
 
     provides = zope.configuration.fields.GlobalInterface(
         title=u"The interface this pagelets provides.",
@@ -73,7 +74,7 @@ class IPageletDirective(zope.component.zcml.IBasicViewInformation):
         views that support other views.""",
         required=False,
         default=interfaces.IPagelet,
-        )
+    )
 
 
 # Arbitrary keys and values are allowed to be passed to the pagelet.
@@ -82,9 +83,9 @@ IPageletDirective.setTaggedValue('keyword_arguments', True)
 
 # pagelet directive
 def pageletDirective(
-    _context, class_, name, permission, for_=zope.interface.Interface,
-    layer=IDefaultBrowserLayer, provides=interfaces.IPagelet,
-    allowed_interface=None, allowed_attributes=None, **kwargs):
+        _context, class_, name, permission, for_=zope.interface.Interface,
+        layer=IDefaultBrowserLayer, provides=interfaces.IPagelet,
+        allowed_interface=None, allowed_attributes=None, **kwargs):
 
     # Security map dictionary
     required = {}
@@ -122,12 +123,13 @@ def pageletDirective(
         zope.interface.classImplements(new_class, provides)
 
     # Create the security checker for the new class
-    zope.security.checker.defineChecker(new_class,
+    zope.security.checker.defineChecker(
+        new_class,
         zope.security.checker.Checker(required))
 
     # register pagelet
     _context.action(
-        discriminator = ('pagelet', for_, layer, name),
-        callable = zope.component.zcml.handler,
-        args = ('registerAdapter',
-                new_class, (for_, layer), provides, name, _context.info),)
+        discriminator=('pagelet', for_, layer, name),
+        callable=zope.component.zcml.handler,
+        args=('registerAdapter',
+              new_class, (for_, layer), provides, name, _context.info),)

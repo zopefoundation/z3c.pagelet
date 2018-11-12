@@ -55,7 +55,8 @@ class OutputChecker(LHTMLOutputChecker, RENormalizing):
             got = ""
         checker = self.doctest.OutputChecker()
         return checker.check_output(
-            want, got, self.doctest.ELLIPSIS|self.doctest.NORMALIZE_WHITESPACE)
+            want, got,
+            self.doctest.ELLIPSIS | self.doctest.NORMALIZE_WHITESPACE)
 
     def check_output(self, want, got, optionflags):
         if got == want:

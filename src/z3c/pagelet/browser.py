@@ -22,6 +22,7 @@ from z3c.pagelet import interfaces
 
 REDIRECT_STATUS_CODES = (301, 302, 303)
 
+
 # default pagelet base implementation
 @zope.interface.implementer(interfaces.IPagelet)
 class BrowserPagelet(browser.BrowserPage):
@@ -45,7 +46,7 @@ class BrowserPagelet(browser.BrowserPage):
         return self.template()
 
     def __call__(self):
-        """Calls update and returns the layout template which calls render."""
+        """Call update and returns the layout template which calls render."""
         self.update()
 
         if self.request.response.getStatus() in REDIRECT_STATUS_CODES:
@@ -60,6 +61,7 @@ class BrowserPagelet(browser.BrowserPage):
                     (self, self.request), ILayoutTemplate)
             return layout(self)
         return self.layout()
+
 
 try:
     from zope.formlib import form
@@ -98,7 +100,6 @@ else:
 
             return self.form_result
 
-
     @zope.interface.implementer(interfaces.IPageletAddForm)
     class PageletAddForm(PageletForm, form.AddFormBase):
         """Add form mixin for pagelet implementations."""
@@ -117,11 +118,9 @@ else:
                 return template(self)
             return self.template()
 
-
     @zope.interface.implementer(interfaces.IPageletEditForm)
     class PageletEditForm(PageletForm, form.EditFormBase):
         """Edit form mixin for pagelet implementations."""
-
 
     @zope.interface.implementer(interfaces.IPageletDisplayForm)
     class PageletDisplayForm(PageletForm, form.DisplayFormBase):

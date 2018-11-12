@@ -18,9 +18,6 @@ import unittest
 import itertools
 import doctest
 
-import lxml.etree
-import lxml.doctestcompare
-
 import zope.component
 import zope.schema
 import zope.traversing.adapters
@@ -31,7 +28,6 @@ from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.site.testing import siteSetUp, siteTearDown
 from zope.formlib import form
 from zope.configuration import xmlconfig
-from zope.testing import renormalizing
 
 from z3c.pagelet import outputchecker
 
@@ -41,7 +37,7 @@ checker = outputchecker.OutputChecker(patterns=[
      r"\1"),
     (re.compile('u(".*?")'),
      r"\1"),
-    ])
+])
 
 
 def setUp(test):
@@ -51,10 +47,11 @@ def setUp(test):
     zope.component.provideAdapter(
         zope.traversing.adapters.DefaultTraversable,
         [None],
-        )
+    )
 
     # setup widgets
-    zope.component.provideAdapter(zope.formlib.textwidgets.TextWidget,
+    zope.component.provideAdapter(
+        zope.formlib.textwidgets.TextWidget,
         [zope.schema.interfaces.ITextLine, IBrowserRequest],
         zope.formlib.interfaces.IInputWidget)
 
@@ -64,15 +61,16 @@ def setUp(test):
          zope.publisher.interfaces.browser.IBrowserRequest,
          ],
         zope.formlib.interfaces.IWidgetInputErrorView,
-        )
+    )
     zope.component.provideAdapter(
         zope.formlib.widget.UnicodeDisplayWidget,
         [zope.schema.interfaces.ITextLine,
          zope.publisher.interfaces.browser.IBrowserRequest,
          ],
         zope.formlib.interfaces.IDisplayWidget,
-        )
+    )
     zope.component.provideAdapter(form.render_submit_button, name='render')
+
 
 def setUpZPT(test):
     setUp(test)
@@ -82,6 +80,7 @@ def setUpZPT(test):
     from zope.contentprovider import tales
     metaconfigure.registerType('provider', tales.TALESProviderExpression)
 
+
 def setUpZ3CPT(suite):
     setUp(suite)
     import z3c.pt
@@ -89,22 +88,26 @@ def setUpZ3CPT(suite):
     xmlconfig.XMLConfig('configure.zcml', z3c.pt)()
     xmlconfig.XMLConfig('configure.zcml', z3c.ptcompat)()
 
+
 def tearDown(test):
     siteTearDown()
 
+
 def test_suite():
-    flags = doctest.NORMALIZE_WHITESPACE|\
-            doctest.ELLIPSIS|\
-            doctest.IGNORE_EXCEPTION_DETAIL
+    flags = (
+        doctest.NORMALIZE_WHITESPACE
+        | doctest.ELLIPSIS
+        | doctest.IGNORE_EXCEPTION_DETAIL
+    )
     tests = ((
         doctest.DocFileSuite(
-                'README.rst',
-                setUp=setUp, tearDown=tearDown,
-                optionflags=flags, checker=checker),
+            'README.rst',
+            setUp=setUp, tearDown=tearDown,
+            optionflags=flags, checker=checker),
         doctest.DocFileSuite(
-                'zcml.rst',
-                setUp=setUp, tearDown=tearDown,
-                optionflags=flags, checker=checker),
-        ) for setUp in (setUpZPT, setUpZ3CPT, ))
+            'zcml.rst',
+            setUp=setUp, tearDown=tearDown,
+            optionflags=flags, checker=checker),
+    ) for setUp in (setUpZPT, setUpZ3CPT, ))
 
     return unittest.TestSuite(itertools.chain(*tests))
