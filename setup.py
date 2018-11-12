@@ -97,8 +97,6 @@ setup(
         'zope.schema',
         'zope.security',
     ],
-    tests_require=tests_require,
-    test_suite='z3c.pagelet.tests.test_suite',
     include_package_data=True,
     zip_safe=False,
 )

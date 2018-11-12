@@ -9,6 +9,8 @@ CHANGES
 
 - Drop support for Python 2.6 and 3.3.
 
+- Drop support for ``python setup.py test``.
+
 
 2.0.0 (2015-11-09)
 ------------------

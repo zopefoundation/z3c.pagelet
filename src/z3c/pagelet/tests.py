@@ -108,6 +108,3 @@ def test_suite():
         ) for setUp in (setUpZPT, setUpZ3CPT, ))
 
     return unittest.TestSuite(itertools.chain(*tests))
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
