@@ -5,7 +5,9 @@ CHANGES
 2.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add support for Python 3.8-dev.
+
+- Drop support for Python 3.4.
 
 
 2.1 (2018-11-12)
