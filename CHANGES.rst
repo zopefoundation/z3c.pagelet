@@ -5,7 +5,7 @@ CHANGES
 2.2 (unreleased)
 ----------------
 
-- Add support for Python 3.8-dev.
+- Add support for Python 3.8 and 3.9.
 
 - Drop support for Python 3.4.
 
