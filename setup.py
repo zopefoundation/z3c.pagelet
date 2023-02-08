@@ -40,7 +40,7 @@ setup(
     name='z3c.pagelet',
     version='3.0.dev0',
     author="Roger Ineichen and the Zope Community",
-    author_email="zope-dev@zope.org",
+    author_email="zope-dev@zope.dev",
     description="Pagelets are way to specify a template without the O-wrap.",
     long_description=(
         read('README.rst')
@@ -74,6 +74,7 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     namespace_packages=['z3c'],
+    python_requires='>=3.7',
     extras_require=dict(
         test=tests_require,
         chameleon=[

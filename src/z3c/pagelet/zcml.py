@@ -36,39 +36,39 @@ class IPageletDirective(zope.component.zcml.IBasicViewInformation):
     """
 
     name = zope.schema.TextLine(
-        title=u"The name of the pagelet.",
-        description=u"The name shows up in URLs/paths. For example 'foo'.",
+        title="The name of the pagelet.",
+        description="The name shows up in URLs/paths. For example 'foo'.",
         required=True)
 
     class_ = zope.configuration.fields.GlobalObject(
-        title=u"Class",
-        description=u"A class that provides attributes used by the pagelet.",
+        title="Class",
+        description="A class that provides attributes used by the pagelet.",
         required=True,
     )
 
     permission = zope.security.zcml.Permission(
-        title=u"Permission",
-        description=u"The permission needed to use the pagelet.",
+        title="Permission",
+        description="The permission needed to use the pagelet.",
         required=True
     )
 
     layer = zope.configuration.fields.GlobalObject(
-        title=u"The request interface or class this pagelet is for.",
+        title="The request interface or class this pagelet is for.",
         description=(
-            u"Defaults to"
-            u" zope.publisher.interfaces.browser.IDefaultBrowserLayer."),
+            "Defaults to"
+            " zope.publisher.interfaces.browser.IDefaultBrowserLayer."),
         required=False
     )
 
     for_ = zope.configuration.fields.GlobalObject(
-        title=u"Context",
-        description=u"The content interface or class this pagelet is for.",
+        title="Context",
+        description="The content interface or class this pagelet is for.",
         required=False
     )
 
     provides = zope.configuration.fields.GlobalInterface(
-        title=u"The interface this pagelets provides.",
-        description=u"""
+        title="The interface this pagelets provides.",
+        description="""
         A pagelet can provide an interface.  This would be used for
         views that support other views.""",
         required=False,

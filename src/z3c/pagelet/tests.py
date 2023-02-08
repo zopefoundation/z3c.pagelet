@@ -15,7 +15,6 @@
 """
 import doctest
 import itertools
-import re
 import unittest
 
 import zope.component
@@ -33,13 +32,7 @@ from zope.site.testing import siteTearDown
 from z3c.pagelet import outputchecker
 
 
-checker = outputchecker.OutputChecker(patterns=[
-    # Python 3 unicode removed the "u".
-    (re.compile("u('.*?')"),
-     r"\1"),
-    (re.compile('u(".*?")'),
-     r"\1"),
-])
+checker = outputchecker.OutputChecker(patterns=[])
 
 
 def setUp(test):
