@@ -16,8 +16,8 @@
 import doctest as pythondoctest
 import re
 
-import lxml.etree
 import lxml.doctestcompare
+import lxml.etree
 from lxml.doctestcompare import LHTMLOutputChecker
 from zope.testing.renormalizing import RENormalizing
 

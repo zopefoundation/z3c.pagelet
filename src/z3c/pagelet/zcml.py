@@ -13,20 +13,19 @@
 ##############################################################################
 """ZCML Directives
 """
-import zope.interface
 import zope.component
 import zope.component.zcml
-import zope.schema
 import zope.configuration.fields
+import zope.interface
+import zope.schema
 import zope.security.checker
 import zope.security.zcml
+from zope.browserpage import metaconfigure as viewmeta
 from zope.configuration.exceptions import ConfigurationError
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
-from zope.browserpage import metaconfigure as viewmeta
-
-from z3c.pagelet import interfaces
 from z3c.pagelet import browser
+from z3c.pagelet import interfaces
 
 
 class IPageletDirective(zope.component.zcml.IBasicViewInformation):

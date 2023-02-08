@@ -13,12 +13,14 @@
 ##############################################################################
 """Pagelet mixin classes
 """
-import zope.interface
 import zope.component
+import zope.interface
+from z3c.template.interfaces import IContentTemplate
+from z3c.template.interfaces import ILayoutTemplate
 from zope.publisher import browser
 
-from z3c.template.interfaces import ILayoutTemplate, IContentTemplate
 from z3c.pagelet import interfaces
+
 
 REDIRECT_STATUS_CODES = (301, 302, 303)
 
