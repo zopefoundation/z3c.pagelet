@@ -94,7 +94,7 @@ the directive. We also use a custom attribute called label here. Let's define
 some more components...
 
   >>> class SecondPagelet(BrowserPagelet):
-  ...     label = u''
+  ...     label = ''
 
   >>> import zope.interface
   >>> class IContent(zope.interface.Interface):
@@ -136,7 +136,7 @@ and check them:
   <z3c.pagelet.zcml.SecondPagelet object at ...>
 
   >>> pagelet.label
-  u'my Label'
+  'my Label'
 
 We also can provide another interface then the IPagelet within the directive.
 Such a interface must be inherited from IPagelet.
@@ -246,5 +246,3 @@ Cleanup
 Now we need to clean up the custom module.
 
   >>> del sys.modules['custom']
-
-

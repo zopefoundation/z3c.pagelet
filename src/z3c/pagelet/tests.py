@@ -13,31 +13,26 @@
 ##############################################################################
 """Tests
 """
-import re
-import unittest
-import itertools
 import doctest
+import itertools
+import unittest
 
 import zope.component
+import zope.formlib.exception
+import zope.formlib.interfaces
+import zope.formlib.textwidgets
 import zope.schema
 import zope.traversing.adapters
-import zope.formlib.interfaces
-import zope.formlib.exception
-import zope.formlib.textwidgets
-from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.site.testing import siteSetUp, siteTearDown
-from zope.formlib import form
 from zope.configuration import xmlconfig
+from zope.formlib import form
+from zope.publisher.interfaces.browser import IBrowserRequest
+from zope.site.testing import siteSetUp
+from zope.site.testing import siteTearDown
 
 from z3c.pagelet import outputchecker
 
-checker = outputchecker.OutputChecker(patterns=[
-    # Python 3 unicode removed the "u".
-    (re.compile("u('.*?')"),
-     r"\1"),
-    (re.compile('u(".*?")'),
-     r"\1"),
-])
+
+checker = outputchecker.OutputChecker(patterns=[])
 
 
 def setUp(test):

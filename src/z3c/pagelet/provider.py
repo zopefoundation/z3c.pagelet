@@ -21,7 +21,7 @@ import z3c.pagelet.interfaces
 
 
 @zope.interface.implementer(z3c.pagelet.interfaces.IPageletRenderer)
-class PageletRenderer(object):
+class PageletRenderer:
     """Render the adapted pagelet."""
 
     zope.component.adapts(zope.interface.Interface,
