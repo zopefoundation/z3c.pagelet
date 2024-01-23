@@ -22,9 +22,6 @@ additional-install = [
 
 [tox]
 use-flake8 = true
-testenv-deps = [
-    "pypy3: cffi",
-    ]
 
 [manifest]
 additional-rules = [
