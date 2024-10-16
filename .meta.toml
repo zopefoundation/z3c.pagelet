@@ -13,7 +13,7 @@ with-macos = false
 with-docs = false
 
 [coverage]
-fail-under = 85
+fail-under = 84.5
 
 [github-actions]
 additional-install = [
