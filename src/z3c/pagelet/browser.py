@@ -67,7 +67,7 @@ class BrowserPagelet(browser.BrowserPage):
 
 try:
     from zope.formlib import form
-except ImportError:
+except ModuleNotFoundError:
     pass
 else:
     # formlib based pagelet mixin classes
