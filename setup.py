@@ -38,7 +38,7 @@ tests_require = [
 
 setup(
     name='z3c.pagelet',
-    version='3.1.dev0',
+    version='3.1',
     author="Roger Ineichen and the Zope Community",
     author_email="zope-dev@zope.dev",
     description="Pagelets are way to specify a template without the O-wrap.",
