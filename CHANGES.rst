@@ -2,10 +2,12 @@
 CHANGES
 =======
 
-3.2 (unreleased)
+4.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Drop support for Python 3.8.
+
+- Drop support for PyPy.
 
 
 3.1 (2024-10-21)

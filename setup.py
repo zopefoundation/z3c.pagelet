@@ -11,8 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Setup
-"""
+"""Setup"""
+
 import os
 
 from setuptools import find_packages
@@ -25,81 +25,75 @@ def read(*rnames):
 
 
 tests_require = [
-    'zope.formlib',
-    'zope.site',
-    'zope.testing',
-    'zope.testrunner',
-    'zope.traversing',
-    'lxml',
-    'z3c.pt >= 2.1',
-    'z3c.ptcompat >= 1.0',
+    "zope.formlib",
+    "zope.site",
+    "zope.testing",
+    "zope.testrunner",
+    "zope.traversing",
+    "lxml",
+    "z3c.pt >= 2.1",
+    "z3c.ptcompat >= 1.0",
 ]
 
 
 setup(
-    name='z3c.pagelet',
-    version='3.2.dev0',
+    name="z3c.pagelet",
+    version="4.0.dev0",
     author="Roger Ineichen and the Zope Community",
     author_email="zope-dev@zope.dev",
     description="Pagelets are way to specify a template without the O-wrap.",
     long_description=(
-        read('README.rst')
-        + '\n\n' +
-        read('src', 'z3c', 'pagelet', 'README.rst')
-        + '\n\n' +
-        read('CHANGES.rst')
+        read("README.rst")
+        + "\n\n"
+        + read("src", "z3c", "pagelet", "README.rst")
+        + "\n\n"
+        + read("CHANGES.rst")
     ),
-    license="ZPL 2.1",
+    license="ZPL-2.1",
     keywords="zope3 template pagelet layout zpt pagetemplate",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: Zope Public License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.12',
-        'Programming Language :: Python :: 3.13',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
-        'Natural Language :: English',
-        'Operating System :: OS Independent',
-        'Topic :: Internet :: WWW/HTTP',
-        'Framework :: Zope :: 3',
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Zope Public License",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Topic :: Internet :: WWW/HTTP",
+        "Framework :: Zope :: 3",
     ],
-    url='https://github.com/zopefoundation/z3c.pagelet',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    namespace_packages=['z3c'],
-    python_requires='>=3.8',
+    url="https://github.com/zopefoundation/z3c.pagelet",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    namespace_packages=["z3c"],
+    python_requires=">=3.9",
     extras_require=dict(
         test=tests_require,
         chameleon=[
-            'z3c.pt >= 2.1',
-            'z3c.ptcompat',
+            "z3c.pt >= 2.1",
+            "z3c.ptcompat",
         ],
-        forms=[
-            'zope.formlib'
-        ],
-        docs=[
-            'z3c.recipe.sphinxdoc'
-        ],
+        forms=["zope.formlib"],
+        docs=["z3c.recipe.sphinxdoc"],
     ),
     install_requires=[
-        'setuptools',
-        'z3c.template>=1.2.0',
-        'zope.browserpage',
-        'zope.component>=3.7.0',
-        'zope.configuration',
-        'zope.contentprovider',
-        'zope.interface',
-        'zope.publisher',
-        'zope.schema',
-        'zope.security',
+        "setuptools",
+        "z3c.template>=1.2.0",
+        "zope.browserpage",
+        "zope.component>=3.7.0",
+        "zope.configuration",
+        "zope.contentprovider",
+        "zope.interface",
+        "zope.publisher",
+        "zope.schema",
+        "zope.security",
     ],
     include_package_data=True,
     zip_safe=False,
