@@ -15,7 +15,6 @@
 
 import os
 
-from setuptools import find_packages
 from setuptools import setup
 
 
@@ -28,7 +27,7 @@ tests_require = [
     "zope.formlib",
     "zope.site",
     "zope.testing",
-    "zope.testrunner",
+    "zope.testrunner >= 6.4",
     "zope.traversing",
     "lxml",
     "z3c.pt >= 2.1",
@@ -70,9 +69,6 @@ setup(
         "Framework :: Zope :: 3",
     ],
     url="https://github.com/zopefoundation/z3c.pagelet",
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    namespace_packages=["z3c"],
     python_requires=">=3.9",
     extras_require=dict(
         test=tests_require,
