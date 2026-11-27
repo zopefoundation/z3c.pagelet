@@ -2,7 +2,7 @@
 # https://github.com/zopefoundation/meta/tree/master/src/zope/meta/pure-python
 [meta]
 template = "pure-python"
-commit-id = "f63da99d"
+commit-id = "eceed68f"
 
 [python]
 with-pypy = false
@@ -22,12 +22,12 @@ additional-install = [
     "sudo apt-get install libxml2-dev libxslt-dev",
     ]
 
-[tox]
-use-flake8 = true
-
 [manifest]
 additional-rules = [
     "recursive-include src *.pt",
     "recursive-include src *.rst",
     "recursive-include src *.zcml",
     ]
+
+[pypi]
+trusted-publishing = true
